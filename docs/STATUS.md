@@ -177,7 +177,7 @@ Próximos passos:
 - Testar a integridade do banco de dados fazendo registros válidos e inválidos no mysql, pra ver se está funcionando.
 
 ---
-## Port das páginas do Biblio-Tech: 25/11/2026
+## Feat Henrique : Port das páginas do Biblio-Tech: 25/11/2026
 
 - O projeto só tinha `src/pages/cadastro-usuarios.html`; o `index.html` já linkava todas as outras telas, então os links caíam em 404.
 - Portadas do repositório `DevKhal-EL/Biblio-Tech` (branch `main`) para `src/pages/`: `catalogo-livros.html`, `consulta.html`, `usuarios-cadastrados.html`, `cadastro-livros.html`, `emprestimos.html` e `devolucao.html`.
@@ -188,7 +188,7 @@ Próximos passos:
 - Formulário de `emprestimos.html` reduzido a 3 campos: Título, Email Usuário e Data Empréstimo. Ajustado `realizarEmprestimo` no `script.js` para buscar o livro pelo título e o usuário pelo email (antes comparava 7 campos do livro). Como não há mais data de devolução prevista no empréstimo, o campo ficou `null`, a tabela de recentes mostra `—` e a contagem de atrasos só é feita quando existe data prevista.
 
 ---
-## Reformulação do front-end: 25/11/2026
+## Feat Henrique : Reformulação do front-end: 25/11/2026
 
 - `src/style.css` reescrito do zero: tema de biblioteca aconchegante (fundo papel `#fdf7f0`, terracota `#e7744c`, sálvia e amarelo), cantos bem arredondados, sombras suaves, botões em pílula e cartões de métricas com ícone em bloco colorido. Tipografia: `Baloo 2` nos títulos e `Nunito` no texto (Google Fonts), com fallback para fontes do sistema.
 - Os PNGs do menu (`assets/icons/*.png`) foram substituídos por ícones vetoriais do [Lucide](https://lucide.dev) (licença ISC), embutidos como SVG inline em cada página. Assim eles herdam a cor do CSS (`currentColor`), ficam nítidos em qualquer zoom e não dependem de imagem externa. Os PNGs antigos continuam na pasta, sem uso.
@@ -199,7 +199,7 @@ Próximos passos:
 - Removido o `<style>` inline de `consulta.html`, que sobrescrevia a tipografia dos relatórios.
 
 ---
-## Front-end ligado no MySQL (fim do localStorage): 25/11/2026
+## Feat Henrique : Front-end ligado no MySQL (fim do localStorage): 25/11/2026
 
 - Criado `src/back-end/server.js`: um servidor HTTP (Node puro, sem framework) que serve o site e uma API JSON em `/api`, usando o pool do `connectionDB.js`. Rodar com `npm start` e abrir `http://127.0.0.1:3000/src/index.html`.
 - Rotas: `GET /api/dashboard`, `GET|POST /api/livros`, `GET|POST /api/usuarios`, `GET /api/emprestimos`, `POST /api/emprestimos`, `POST /api/devolucoes`.
@@ -215,7 +215,7 @@ Próximos passos:
 - `consulta.html` ganhou `#mensagem-feedback` para mostrar o erro de conexão; os cards de métrica mostram `—` quando a API falha.
 - `package.json` ganhou `npm start` e `npm run dev` (`node --watch`). README atualizado com o passo de rodar o site e a lista de endpoints.
 
-### Correções da revisão (mesmo dia)
+### Feat Henrique : Correções da revisão (mesmo dia)
 
 - **Ano do livro:** a coluna `ano_publicacao` é `YEAR`, que no MySQL só aceita **1901 a 2155**. A validação aceitava a partir de 1000, então um livro de 1899 estourava o tipo (erro/truncamento no INSERT). Agora o servidor barra antes, com a mensagem "O ano precisa estar entre 1901 e 2027 (no banco, YEAR aceita de 1901 a 2155).", e o `input-ano` ganhou `min="1901" max="2155"`. Também mapeamos `ER_WARN_DATA_OUT_OF_RANGE` / `ER_TRUNCATED_WRONG_VALUE_FOR_FIELD` para 400.
 - **Campo Usuário na devolução:** o formulário tinha `input-usuario` mas a API recebia só título, e-mail e data — o nome era ignorado. Agora o front envia `usuario` e o `POST /api/devolucoes` usa `AND u.nome = ?` na busca do empréstimo ativo (obrigatório; sem ele responde 400). Assim livro + e-mail + nome identificam o empréstimo, e um nome errado dá 404 em vez de devolver o livro de outra pessoa.
@@ -225,7 +225,7 @@ Próximos passos:
 - **Criação do banco sem o cliente mysql:** quem não tem o `mysql.exe` no PATH (erro `'mysql' não é reconhecido`) recebia um beco sem saída. Adicionei `src/back-end/criarBanco.js` + `npm run db:criar`, que lê o `schema.sql` e executa tudo pelo `mysql2` já instalado, listando as tabelas ao final. Se as tabelas já existirem, avisa em vez de estourar `ER_TABLE_EXISTS_ERROR`.
 
 ---
-## Sistema de contas e permissões (dev / usuário): 25/11/2026
+## Feat Henrique : Sistema de contas e permissões (dev / usuário): 25/11/2026
 
 - **Banco:** a tabela `usuarios` ganhou `senha_hash VARCHAR(255) NULL` (guardamos `salt:hash` do **scrypt**, que já vem no `node:crypto` — nenhuma dependência nova) e `papel ENUM('Usuario','Dev') NOT NULL DEFAULT 'Usuario'`. O `schema.sql` já nasce com as duas colunas; para bancos que já existiam, `npm run db:contas` roda `src/back-end/migrarContas.js`, que acrescenta o que falta, cria/redefine a conta base de dev e dá a senha padrão `1234` às contas antigas (que ficariam sem conseguir entrar).
 - **Conta base:** `dev@gmail.com` / `1234devs`, papel `Dev`. A senha pode ser trocada por `DEV_EMAIL` / `DEV_SENHA` no `.env` antes de rodar a migração.
@@ -236,7 +236,7 @@ Próximos passos:
 - **Telas alteradas:** `usuarios-cadastrados.html` ganhou a coluna "Permissão" com um `<select>` que salva na hora; `cadastro-usuarios.html` ganhou os campos **Senha** (mínimo 4 caracteres) e **Permissão**.
 - **Testes feitos:** 21 checagens de API contra o MySQL real, todas passando — 401 sem login, 401 com senha errada, login do dev, `GET /api/usuarios` liberado para dev e **403** para conta comum (inclusive em `POST /api/livros` e `DELETE /api/livros/:id`), criação de conta pelo dev, promoção a dev refletindo na sessão já aberta, dev não conseguindo se rebaixar (400) e cookie invalidado depois do logout. A conta criada no teste foi apagada do banco ao final.
 
-### Cadastro aberto (mesmo dia)
+### Feat Henrique : Cadastro aberto (mesmo dia)
 
 - **Decisão:** o login não mostra mais a conta base embaixo do botão (era só apoio de teste). No lugar entrou o link *Criar conta de usuário*.
 - **Auto-cadastro:** nova página `src/pages/criar-conta.html` + `src/cadastro.js`, que chamam `POST /api/contas`. A rota é pública, mas **força `papel = 'Usuario'`** no servidor (`cadastrarUsuario(pool, dados, "Usuario")`) — mandar `papel: "Dev"` no JSON não promove ninguém. A conta já é criada logada (o cookie de sessão vem na resposta).
@@ -244,13 +244,13 @@ Próximos passos:
 - **Mensagem de e-mail repetido:** `cadastrarUsuario` confere o e-mail antes do `INSERT` e responde 409 "Já existe uma conta com esse e-mail. Tente entrar." (o `ER_DUP_ENTRY` continua como rede de segurança para corrida entre duas requisições).
 - **Testes:** `POST /api/contas` cria com papel `Usuario` mesmo enviando `papel: "Dev"`, o cookie devolvido abre `GET /api/sessoes/atual`, e-mail repetido dá 409 e senha com menos de 4 caracteres dá 400. Conta de teste removida do banco.
 
-### Excluir usuário (mesmo dia)
+### Feat Henrique : Excluir usuário (mesmo dia)
 
 - **Backend:** `DELETE /api/usuarios/:id`, só para dev. Antes de apagar, a transação trava a linha (`FOR UPDATE`) e checa três coisas: a conta não pode ser a do próprio dev logado (400), o sistema não pode ficar sem nenhum dev (409) e o usuário não pode ter empréstimo em aberto nem histórico (409, com mensagens diferentes). A regra é a mesma do `DELETE` de livro e existe porque `emprestimos` usa `ON DELETE RESTRICT` — apagar a conta deixaria o histórico órfão. Sem empréstimo, apaga a linha de `usuarios` e as sessões abertas daquela pessoa são removidas do `Map` na hora (o token deixa de valer, sem esperar o cookie expirar).
 - **Front:** a tabela de *Usuários* ganhou a coluna "Ações" com o botão de lixeira e um modal de confirmação (`modal-excluir-usuario`) igual ao do catálogo, com Cancelar/Excluir. Ao confirmar, a mensagem vem da API e a lista é recarregada; se o servidor bloquear com 409, o modal fecha e o motivo aparece em `#mensagem-feedback`.
 - **Testes:** dev apaga conta sem histórico (200) e a sessão antiga dessa conta passa a dar 401; usuário comum recebe 403; dev não consegue se apagar (400); conta com empréstimo em aberto e conta só com histórico recebem 409. Os dados do teste (livro, empréstimo e contas) foram removidos do banco ao final.
 
-### Circulação por seletores (mesmo dia)
+### Feat Henrique : Circulação por seletores (mesmo dia)
 
 - **Problema:** emprestar e devolver exigiam digitar título, e-mail e nome do usuário. Qualquer diferença de acento/maiúscula no título ou no nome gerava "não encontrado", e o usuário comum tinha que digitar o próprio e-mail.
 - **Empréstimo:** o campo de texto virou `<select id="select-livro">`, preenchido com `GET /api/livros` e mostrando apenas livros com exemplar disponível ("Título — Autor (n)"). A API mudou de `titulo + email` para `idLivro` e o usuário vem da **sessão**: usuário comum empresta sempre para si. O seletor de usuário (`select-usuario`, `GET /api/usuarios`) só aparece quando `sessao.papel === "Dev"`; se um usuário comum mandar `idUsuario` na mão, o servidor ignora e usa o id da sessão.
@@ -259,7 +259,7 @@ Próximos passos:
 - **Testes:** empréstimo por usuário comum grava na conta dele mesmo (mesmo mandando `idUsuario` de outro), dev empresta para um usuário escolhido, devolução por outra conta dá 403, devolução repetida dá 409, data anterior ao empréstimo dá 400 e a devolução válida libera o exemplar. Os registros do teste foram apagados do banco.
 
 ---
-## Exclusão de livro sem perder histórico: 25/11/2026
+## Feat Henrique : Exclusão de livro sem perder histórico: 25/11/2026
 
 - **Problema:** o `DELETE /api/livros/:id` respondia **409** para qualquer livro que já tivesse empréstimo **no histórico**, mesmo com tudo devolvido. Era a "regra A" documentada antes, mas impedia limpar o catálogo de livros que já circularam.
 - **Solução escolhida:** exclusão lógica (soft delete), a melhoria que já estava anotada aqui. A tabela `livros` ganhou `ativo TINYINT NOT NULL DEFAULT 1`; excluir agora faz `UPDATE livros SET ativo = 0`. O livro some do catálogo, do dashboard, do seletor de empréstimo e da edição, mas as linhas de `acervo` e `emprestimos` continuam — o histórico e os relatórios seguem íntegros.

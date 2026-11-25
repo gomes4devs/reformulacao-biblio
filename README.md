@@ -3,11 +3,7 @@
 Sistema web de **gestão de biblioteca** desenvolvido para a disciplina de Banco de Dados.
 O site está **publicado e disponível para uso** — não é necessário instalar nada para avaliá-lo.
 
-> 🔗 **Site:** `https://bibliotech-xxxx.onrender.com`
-> *(substitua pelo endereço real do serviço no Render — está em Settings → no topo do painel)*
->
-> **Conta de administrador (Dev):** `dev@gmail.com` / `1234devs`
-> Qualquer pessoa também pode criar a própria conta em *Criar conta de usuário*, na tela de login.
+> 🔗 **Site:** `https://bibliotech-6dds.onrender.com`
 
 Como o site está hospedado no plano gratuito do Render, ele **hiberna após ~15 minutos sem
 acessos**. A primeira visita depois disso demora de 30 a 60 segundos para responder — é
