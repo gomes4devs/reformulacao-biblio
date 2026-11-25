@@ -1103,8 +1103,14 @@ if (executadoDiretamente) {
   const { default: pool } = await import("./connectionDB.js");
   const servidor = criarServidor(pool);
 
-  servidor.listen(PORTA, "127.0.0.1", async () => {
-    console.log("Site: http://127.0.0.1:" + PORTA + "/src/index.html");
+  /* HOST fica 127.0.0.1 na sua máquina (não abre porta no firewall) e vira
+     0.0.0.0 quando você define HOST=0.0.0.0, que é o que os serviços de
+     hospedagem (Railway, Render, VPS...) precisam para receber acesso externo. */
+  const ENDERECO = process.env.HOST || "127.0.0.1";
+
+  servidor.listen(PORTA, ENDERECO, async () => {
+    const exibido = ENDERECO === "0.0.0.0" ? "127.0.0.1" : ENDERECO;
+    console.log("Site: http://" + exibido + ":" + PORTA + "/src/index.html");
     try {
       await pool.query("SELECT 1");
       console.log("MySQL conectado em " + (process.env.DB_NAME || "BIBLIOTECA_BD") + ".");

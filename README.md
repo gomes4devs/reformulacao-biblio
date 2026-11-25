@@ -209,13 +209,16 @@ Relatórios do acervo e da circulação, montados a partir dos mesmos dados da A
 | `npm start` | Sobe o site e a API em `http://127.0.0.1:3000` |
 | `npm run dev` | Mesmo servidor, reiniciando a cada alteração |
 | `npm run db:criar` | Cria o banco e as tabelas a partir do `schema.sql` |
+| `npm run db:tabelas` | Cria só as tabelas no banco que já existe (MySQL hospedado) |
 | `npm run db:contas` | Adiciona senha/permissão, cria a conta base de dev, migra contas antigas |
 | `npm run db:livros` | Adiciona a coluna `ativo` em `livros` (exclusão sem perder histórico) |
 
 Variáveis opcionais no `.env`:
 
 ```env
+DB_PORT=3306          # só mude se o banco não estiver na 3306 (MySQL hospedado)
 PORT=3000             # outra porta, se a 3000 estiver ocupada
+HOST=127.0.0.1        # use 0.0.0.0 quando o site estiver hospedado
 DIAS_EMPRESTIMO=7     # prazo padrão do empréstimo em dias (padrão: 14)
 DEV_EMAIL=...         # e-mail da conta base criada por db:contas
 DEV_SENHA=...         # senha da conta base criada por db:contas
@@ -242,7 +245,9 @@ reformulacao-biblio/
 │       ├── migrarContas.js   # npm run db:contas
 │       └── schema.sql        # estrutura do banco
 ├── docs/STATUS.md            # histórico de alterações do grupo
+├── docs/HOSPEDAGEM.md        # tutorial de como publicar o site na internet
 ├── .env                      # suas credenciais (não versionado)
+├── render.yaml               # configuração de deploy no Render
 └── package.json
 ```
 
@@ -305,12 +310,40 @@ O banco é anterior à exclusão sem perda de histórico. Rode `npm run db:livro
 **Fui deslogado do nada**
 O servidor foi reiniciado (as sessões ficam em memória) ou passaram as 8 horas. Entre de novo.
 
+**"Application failed to respond" / 502 no site hospedado**
+Falta a variável `HOST=0.0.0.0` no painel da hospedagem, ou o deploy ainda está construindo.
+Veja os logs do serviço.
+
 **A porta 3000 já está em uso**
 Rode com outra porta: `PORT=3001 npm start` (no PowerShell, `$env:PORT=3001; npm start`).
 
 ---
 
-## 10. Antes de enviar alterações
+## 10. Colocar o site na internet (Render + Filess.io)
+
+O projeto não roda em hospedagem só de PHP (é o caso do InfinityFree): ele precisa de um lugar
+que execute o **Node** e de um **MySQL** acessível pela internet. O caminho mais fácil e grátis
+é **Render** (o site) + **Filess.io** (o banco), e o `render.yaml` da raiz já deixa o Render
+configurado — você só cola os dados do banco.
+
+Passo a passo completo, escrito para quem nunca hospedou nada:
+**[`docs/HOSPEDAGEM.md`](docs/HOSPEDAGEM.md)**.
+
+Resumo em 4 passos:
+
+1. `git push origin main` — o Render lê o código do GitHub, não do seu PC.
+2. Criar um MySQL grátis no Filess.io e copiar host, porta, usuário, senha e nome do banco.
+3. No seu PC, com o `.env` apontando para esse banco: `npm run db:tabelas`,
+   `npm run db:contas` e `npm run db:livros`.
+4. No Render: *New → Blueprint* → escolher o repositório → colar os cinco valores do banco →
+   *Deploy*. O endereço público aparece como `https://bibliotech-xxxx.onrender.com`.
+
+> Limites do grátis: o banco tem **10 MB** (sobra para um trabalho acadêmico) e o site **dorme
+> após ~15 minutos** sem visita, acordando na primeira requisição (30–60 s).
+
+---
+
+## 11. Antes de enviar alterações
 
 ```bash
 git switch henriqu

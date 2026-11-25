@@ -1,0 +1,32 @@
+# Configuração de deploy no Render (https://render.com/docs/blueprint-spec)
+#
+# No painel do Render: New → Blueprint → escolha o repositório deste projeto.
+# O Render lê este arquivo, cria o serviço web e pede os valores das variáveis
+# marcadas com "sync: false" (as do banco). O resto já vem pronto.
+#
+# O banco MySQL em si fica fora do Render (o plano grátis de lá só tem Postgres):
+# use o Filess.io e cole os dados no primeiro deploy. Veja docs/HOSPEDAGEM.md.
+
+services:
+  - type: web
+    name: bibliotech
+    runtime: node
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      # O Render entrega a porta em PORT; o host precisa ser aberto para o proxy.
+      - key: HOST
+        value: 0.0.0.0
+
+      # Dados do MySQL hospedado (Filess.io). O Render pergunta no primeiro deploy.
+      - key: DB_HOST
+        sync: false
+      - key: DB_PORT
+        sync: false
+      - key: DB_USER
+        sync: false
+      - key: DB_PASSWORD
+        sync: false
+      - key: DB_NAME
+        sync: false

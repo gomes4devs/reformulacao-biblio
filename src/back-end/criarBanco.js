@@ -18,6 +18,12 @@ dotenv.config();
 const RAIZ = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../..");
 const CAMINHO_SCHEMA = path.join(RAIZ, "src", "back-end", "schema.sql");
 
+/* Modo "--tabelas" (npm run db:tabelas): usa o banco que já existe no servidor.
+   Em MySQL hospedado (Filess.io, Railway, Clever Cloud...) você não tem permissão
+   para criar bancos: o schema.sql precisa rodar só a parte das tabelas. */
+const MODO_TABELAS = process.argv.includes("--tabelas");
+const USAR_SSL = String(process.env.DB_SSL || "").toLowerCase() === "true";
+
 async function principal() {
   let sql;
   try {
@@ -28,12 +34,21 @@ async function principal() {
     return;
   }
 
+  if (MODO_TABELAS) {
+    sql = sql
+      .replace(/^\s*CREATE DATABASE[^;]*;/im, "")
+      .replace(/^\s*USE\s+[^;]+;/im, "");
+  }
+
   let conexao;
   try {
     conexao = await mysql.createConnection({
       host: process.env.DB_HOST || "localhost",
+      port: Number(process.env.DB_PORT) || 3306,
       user: process.env.DB_USER || "root",
       password: process.env.DB_PASSWORD || "",
+      ...(MODO_TABELAS ? { database: process.env.DB_NAME || "BIBLIOTECA_BD" } : {}),
+      ...(USAR_SSL ? { ssl: {} } : {}),
       multipleStatements: true,
     });
   } catch (erro) {
@@ -47,7 +62,11 @@ async function principal() {
 
   try {
     await conexao.query(sql);
-    console.log("Banco criado com sucesso a partir do schema.sql.");
+    console.log(
+      MODO_TABELAS
+        ? "Tabelas criadas em " + (process.env.DB_NAME || "BIBLIOTECA_BD") + "."
+        : "Banco criado com sucesso a partir do schema.sql."
+    );
   } catch (erro) {
     if (erro.code === "ER_TABLE_EXISTS_ERROR") {
       console.log("As tabelas já existem — nada foi alterado.");

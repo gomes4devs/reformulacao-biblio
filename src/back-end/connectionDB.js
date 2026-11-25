@@ -27,6 +27,11 @@ usuário, senha e nome do banco expostos diretamente no código.
 
 let con = await mysql.createPool({
   host: process.env.DB_HOST,         // Apenas o endereço, sem "mysql://"
+  // A porta só precisa ser informada quando o banco não está na 3306, como no
+  // acesso externo (TCP Proxy) de um MySQL hospedado no Railway.
+  port: Number(process.env.DB_PORT) || 3306,
+  // Alguns MySQL hospedados só aceitam conexão criptografada: use DB_SSL=true.
+  ...(String(process.env.DB_SSL || "").toLowerCase() === "true" ? { ssl: {} } : {}),
   user: process.env.DB_USER,              // Usuário padrão
   password: process.env.DB_PASSWORD,              // Deixe vazio já que não tem senha
   database: process.env.DB_NAME  // O nome do banco entra aqui separadamente
