@@ -24,15 +24,22 @@ projeto (passo 4).
 ### 2.1 Clonar o repositório
 
 ```bash
-git clone https://github.com/DevKhal-EL/Biblioteca-BD.git
-cd Biblioteca-BD
+git clone https://github.com/gomes4devs/reformulacao-biblio.git
+cd reformulacao-biblio
 ```
+
+Repositório: [`gomes4devs/reformulacao-biblio`](https://github.com/gomes4devs/reformulacao-biblio)
 
 Se você vai testar a branch de desenvolvimento deste trabalho:
 
 ```bash
+git fetch origin
 git switch henriqu
 ```
+
+> A branch de trabalho é a `henriqu`. Se ela ainda não aparecer na lista
+> (`git branch -r`), é porque o commit dela ainda não foi enviado — nesse caso teste a `dev`
+> (`git switch dev`).
 
 ### 2.2 Instalar as dependências
 
@@ -219,7 +226,7 @@ DEV_SENHA=...         # senha da conta base criada por db:contas
 ## 7. Estrutura do projeto
 
 ```
-Biblioteca-BD/
+reformulacao-biblio/
 ├── src/
 │   ├── index.html            # página inicial
 │   ├── style.css             # tema visual do site inteiro
