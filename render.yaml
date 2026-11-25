@@ -5,7 +5,8 @@
 # marcadas com "sync: false" (as do banco). O resto já vem pronto.
 #
 # O banco MySQL em si fica fora do Render (o plano grátis de lá só tem Postgres):
-# use o Filess.io e cole os dados no primeiro deploy. Veja docs/HOSPEDAGEM.md.
+# use o TiDB Cloud Starter (MySQL compatível, grátis) e cole os dados no primeiro
+# deploy. Veja docs/HOSPEDAGEM.md.
 
 services:
   - type: web
@@ -19,7 +20,11 @@ services:
       - key: HOST
         value: 0.0.0.0
 
-      # Dados do MySQL hospedado (Filess.io). O Render pergunta no primeiro deploy.
+      # O TiDB Cloud só aceita conexão criptografada.
+      - key: DB_SSL
+        value: "true"
+
+      # Dados do MySQL hospedado (TiDB Cloud). O Render pergunta no primeiro deploy.
       - key: DB_HOST
         sync: false
       - key: DB_PORT

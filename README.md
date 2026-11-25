@@ -319,12 +319,12 @@ Rode com outra porta: `PORT=3001 npm start` (no PowerShell, `$env:PORT=3001; npm
 
 ---
 
-## 10. Colocar o site na internet (Render + Filess.io)
+## 10. Colocar o site na internet (Render + TiDB Cloud)
 
 O projeto não roda em hospedagem só de PHP (é o caso do InfinityFree): ele precisa de um lugar
 que execute o **Node** e de um **MySQL** acessível pela internet. O caminho mais fácil e grátis
-é **Render** (o site) + **Filess.io** (o banco), e o `render.yaml` da raiz já deixa o Render
-configurado — você só cola os dados do banco.
+é **Render** (o site) + **TiDB Cloud Starter** (banco MySQL-compatível, 5 GB, sem cartão), e o
+`render.yaml` da raiz já deixa o Render configurado — você só cola os dados do banco.
 
 Passo a passo completo, escrito para quem nunca hospedou nada:
 **[`docs/HOSPEDAGEM.md`](docs/HOSPEDAGEM.md)**.
@@ -332,14 +332,16 @@ Passo a passo completo, escrito para quem nunca hospedou nada:
 Resumo em 4 passos:
 
 1. `git push origin main` — o Render lê o código do GitHub, não do seu PC.
-2. Criar um MySQL grátis no Filess.io e copiar host, porta, usuário, senha e nome do banco.
-3. No seu PC, com o `.env` apontando para esse banco: `npm run db:tabelas`,
+2. Criar um MySQL grátis no TiDB Cloud (`Starter`) e copiar host, porta, usuário `.root` e senha;
+   criar o banco `bibliotech` no **SQL Editor**.
+3. No seu PC, com o `.env` apontando para esse banco (e `DB_SSL=true`): `npm run db:tabelas`,
    `npm run db:contas` e `npm run db:livros`.
 4. No Render: *New → Blueprint* → escolher o repositório → colar os cinco valores do banco →
    *Deploy*. O endereço público aparece como `https://bibliotech-xxxx.onrender.com`.
 
-> Limites do grátis: o banco tem **10 MB** (sobra para um trabalho acadêmico) e o site **dorme
-> após ~15 minutos** sem visita, acordando na primeira requisição (30–60 s).
+> Limites do grátis: o banco tem **5 GB** (sobra para um trabalho acadêmico) e o site **dorme
+> após ~15 minutos** sem visita, acordando na primeira requisição (30–60 s). O banco exige
+> conexão criptografada: por isso o `DB_SSL=true` no `.env` e no `render.yaml`.
 
 ---
 

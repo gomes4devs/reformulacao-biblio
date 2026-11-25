@@ -19,7 +19,7 @@ const RAIZ = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../..")
 const CAMINHO_SCHEMA = path.join(RAIZ, "src", "back-end", "schema.sql");
 
 /* Modo "--tabelas" (npm run db:tabelas): usa o banco que já existe no servidor.
-   Em MySQL hospedado (Filess.io, Railway, Clever Cloud...) você não tem permissão
+   Em MySQL hospedado (TiDB Cloud, Railway, Clever Cloud...) você não tem permissão
    para criar bancos: o schema.sql precisa rodar só a parte das tabelas. */
 const MODO_TABELAS = process.argv.includes("--tabelas");
 const USAR_SSL = String(process.env.DB_SSL || "").toLowerCase() === "true";

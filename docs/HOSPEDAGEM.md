@@ -1,16 +1,18 @@
-# Colocar o BiblioTech na internet (versão fácil: Render + Filess.io)
+# Colocar o BiblioTech na internet (versão fácil: Render + TiDB Cloud)
 
-Este é o caminho com **menos cliques** que achei para este projeto. Ele usa dois sites grátis,
-sem cartão de crédito:
+Este é o caminho com **menos cliques** para este projeto. Ele usa dois serviços grátis, **sem
+cartão de crédito**:
 
-- **Filess.io** guarda o banco MySQL (criar o banco leva ~1 minuto e ele já te entrega
-  prontinho o endereço, o usuário e a senha).
+- **TiDB Cloud Starter** guarda o banco. Ele fala a mesma língua do MySQL (os comandos e o
+  `mysql2` do projeto funcionam igual), tem **5 GB grátis** e não dorme.
 - **Render** roda o site Node.
 
-O projeto já vem com o arquivo `render.yaml`, que faz o Render configurar o serviço sozinho:
-você só cola os dados do banco.
+O `render.yaml` da raiz já deixa o Render quase todo configurado: você só cola os dados do banco.
 
-Tempo: 15 a 20 minutos. Se algo der errado, vá direto para **Problemas comuns** no final.
+> O Filess.io, que era a primeira opção, está **sem vagas para novos bancos**. Se um dia abrir
+> vaga, os passos são os mesmos — muda só de onde vêm host/usuário/senha.
+
+Tempo: 20 minutos. Se algo der errado, vá direto para **Problemas comuns** no final.
 
 ---
 
@@ -21,53 +23,64 @@ git status          # precisa dizer "working tree clean"
 git push origin main
 ```
 
-O Render e o Filess.io não pegam código do seu computador: eles pegam do GitHub. Então esse
-push precisa ter acontecido, inclusive com o `render.yaml`.
+O Render não pega código do seu computador: ele pega do GitHub. Então esse push precisa ter
+acontecido, inclusive com o `render.yaml`.
 
 ---
 
-## Passo 1 — Criar o banco no Filess.io
+## Passo 1 — Criar o banco no TiDB Cloud
 
-1. Abra <https://panel.filess.io/register> e crie a conta (pode entrar com o GitHub).
+1. Abra <https://tidbcloud.com/free-trial> e crie a conta (pode entrar com GitHub ou Google).
    Não pede cartão.
-2. No painel, escolha criar um **banco de dados** (*Create database* / *New database*).
-3. Escolha:
-   - Engine: **MySQL** (versão **8**);
-   - Plano: **Free** (Shared);
-   - Nome: pode ser `bibliotech`.
-4. Clique em criar. Em poucos segundos aparece a **connection string**, parecida com:
+2. Ao entrar, o TiDB já cria uma instância chamada **`Instance0`**. Se não aparecer, clique em
+   **Create Resource** → plano **Starter** → modo **MySQL Compatible** → escolha a região mais
+   próxima (para o Brasil, algo como **AWS / us-east-1**) → **Create**. Fica pronta em ~30 s.
+3. Clique no nome da instância e depois em **Connect** (canto superior direito).
+4. No quadro que abre:
+   - **Connection Type**: deixe **Public** (é por onde o Render e o seu PC vão conectar);
+   - clique em **Generate Password** e **copie a senha na hora** — ela só aparece uma vez;
+   - no exemplo de conexão aparecem o **host**, a **porta** (normalmente `4000`) e o **usuário**.
+5. Guarde no bloco de notas estes cinco dados:
 
+   | Campo | Onde está |
+   |---|---|
+   | `DB_HOST` | endereço tipo `gateway01.us-east-1.prod.aws.tidbcloud.com` |
+   | `DB_PORT` | número ao lado do host (geralmente `4000`) |
+   | `DB_USER` | usuário que **termina em `.root`**, tipo `3AbCdEfGhIjK.root` |
+   | `DB_PASSWORD` | a senha que você gerou agora |
+   | `DB_NAME` | `bibliotech` (você vai criar no passo seguinte) |
+
+   > O usuário tem esse prefixo esquisito de propósito: **copie inteiro**, com o ponto e o
+   > `.root` no final. Só ele consegue entrar nessa instância.
+
+6. **Crie o banco de dados.** Na página da instância, abra a aba **SQL Editor** e rode:
+
+   ```sql
+   CREATE DATABASE IF NOT EXISTS bibliotech;
    ```
-   mysql://usuario:senha@alguma-coisa.filess.io:3306/bibliotech
-   ```
 
-   (o host e a porta podem ser diferentes; o formato é sempre esse)
-
-5. Guarde essa linha em um bloco de notas. Dela saem os quatro dados que o site precisa:
-   - **DB_HOST** → o pedaço depois do `@` e antes dos dois-pontos
-   - **DB_PORT** → o número depois dos dois-pontos
-   - **DB_USER** → o pedaço antes dos dois-pontos iniciais
-   - **DB_PASSWORD** → o pedaço entre os dois-pontos iniciais e o `@`
-   - **DB_NAME** → o pedaço depois da última `/`
-
-> Dica: no painel do Filess.io esses mesmos valores aparecem separados, em um quadro de
-> "Connection details". Se estiverem à mão, use-os direto, sem precisar quebrar a URL.
+   (cole no editor e clique em **Run** / `Ctrl + Enter`). Sem isso, o próximo passo dá
+   `Unknown database 'bibliotech'`. Deixe `DB_NAME=bibliotech` no `.env`, com esse nome mesmo.
 
 ---
 
 ## Passo 2 — Criar as tabelas no banco da nuvem
 
-O banco novo está vazio. Este passo roda no **seu computador**, uma única vez.
+O banco novo está vazio (tem só a "casca"). Este passo roda no **seu computador**, uma única vez.
 
 1. Abra o `.env` da raiz do projeto e troque o conteúdo por:
 
    ```env
-   DB_HOST=alguma-coisa.filess.io
-   DB_PORT=3306
-   DB_USER=usuario
-   DB_PASSWORD=senha
+   DB_HOST=gateway01.us-east-1.prod.aws.tidbcloud.com
+   DB_PORT=4000
+   DB_USER=3AbCdEfGhIjK.root
+   DB_PASSWORD=a_senha_que_voce_gerou
    DB_NAME=bibliotech
+   DB_SSL=true
    ```
+
+   O `DB_SSL=true` **não é opcional** no TiDB: ele só aceita conexão criptografada. Sem essa
+   linha o erro é de SSL/handshake.
 
 2. Rode os três comandos, um de cada vez:
 
@@ -78,15 +91,13 @@ O banco novo está vazio. Este passo roda no **seu computador**, uma única vez.
    ```
 
    O que deve aparecer:
-   - `db:tabelas` → `Tabelas criadas em bibliotech.` e, na linha seguinte, os nomes das
-     tabelas (`Banco bibliotech — tabelas: usuarios, categorias, ...`)
+   - `db:tabelas` → `Tabelas criadas em bibliotech.` e, na linha seguinte, os nomes das tabelas
+     (`Banco bibliotech — tabelas: usuarios, categorias, ...`)
    - `db:contas` → mensagem sobre a conta base `dev@gmail.com` criada
    - `db:livros` → `Coluna ativo criada em livros.` (ou aviso de que já existe)
 
-3. Depois de terminar, **volte o `.env` para o seu MySQL local** (o que estava antes), senão os
-   testes na sua máquina passam a mexer no banco da nuvem.
-
-> Se aparecer erro de SSL, acrescente a linha `DB_SSL=true` no `.env` e rode de novo.
+3. Depois de terminar, **volte o `.env` para o seu MySQL local**, senão os testes na sua
+   máquina passam a mexer no banco da nuvem.
 
 ---
 
@@ -101,13 +112,13 @@ O banco novo está vazio. Este passo roda no **seu computador**, uma única vez.
 
    | Campo | Valor |
    |---|---|
-   | `DB_HOST` | host do Filess.io |
-   | `DB_PORT` | porta do Filess.io |
-   | `DB_USER` | usuário do Filess.io |
-   | `DB_PASSWORD` | senha do Filess.io |
-   | `DB_NAME` | nome do banco (`bibliotech`) |
+   | `DB_HOST` | host do TiDB |
+   | `DB_PORT` | `4000` |
+   | `DB_USER` | usuário `.root` do TiDB |
+   | `DB_PASSWORD` | senha gerada no TiDB |
+   | `DB_NAME` | `bibliotech` |
 
-   (`HOST=0.0.0.0` já vem preenchido pelo `render.yaml` — não mexa.)
+   (`HOST=0.0.0.0` e `DB_SSL=true` já vêm preenchidos pelo `render.yaml` — não mexa.)
 
 5. Clique em **Deploy Blueprint** / **Apply** e espere. A primeira construção leva alguns
    minutos; acompanhe em **Logs**. O final feliz é uma linha parecida com:
@@ -153,12 +164,12 @@ Os dados do banco **não** são apagados nesse processo.
 
 ## O que esperar dos planos grátis
 
-| | Filess.io (banco) | Render (site) |
+| | TiDB Cloud Starter (banco) | Render (site) |
 |---|---|---|
 | Preço | R$ 0, sem cartão | R$ 0, sem cartão |
-| Limite | 10 MB (sobra muito para um trabalho) | 750 horas de máquina por mês |
-| Dorme? | pode suspender e acordar sozinho | sim, após ~15 min sem visita |
-| Primeira visita depois de dormir | alguns segundos | 30 a 60 segundos |
+| Limite | 5 GB + 50 milhões de operações/mês | 750 horas de máquina por mês |
+| Dorme? | não | sim, após ~15 min sem visita |
+| Primeira visita depois de dormir | — | 30 a 60 segundos |
 
 Se a apresentação for ao vivo, **abra o site 1 minuto antes** da sua vez: a primeira requisição
 depois do sono é a demorada.
@@ -172,6 +183,9 @@ depois do sono é a demorada.
   aplicação. Não é uma questão de configuração.
 - **InfinityFree** roda somente PHP e o MySQL dele só aceita conexão de dentro da própria
   conta. Não executa Node e não serve como banco para outro host.
+- **Railway, Clever Cloud, Aiven, PlanetScale**: o acesso grátis a MySQL foi limitado ou
+  encerrado nesses serviços em 2025–2026. O TiDB Cloud é o único que continua abrindo conta
+  grátis sem cartão.
 
 ---
 
@@ -184,20 +198,28 @@ Normal no plano grátis do Render. Recarregue depois de ~1 minuto.
 Confira nas *Environment Variables* do Render se existe `HOST` com valor `0.0.0.0` (o
 `render.yaml` já cria) e veja os **Logs** do deploy.
 
+**`Unknown database 'bibliotech'`**
+Você não rodou o `CREATE DATABASE` no **SQL Editor** do TiDB (passo 1.6), ou o `DB_NAME` do
+`.env` está com outro nome.
+
+**`Access denied for user ...`**
+O `DB_USER` precisa ser o nome **completo**, terminando em `.root`. Copie de novo do quadro
+**Connect** do TiDB.
+
+**Erro de SSL / `HANDSHAKE_NO_SSL_SUPPORT`**
+Falta `DB_SSL=true`. No TiDB ele é obrigatório — tanto no `.env` quanto no Render.
+
 **O site abre, mas as telas ficam vazias**
-As variáveis `DB_*` estão erradas. Nos logs deve aparecer `MySQL conectado em ...`; se aparecer
-"sem conexão", corrija os dados do Filess.io em *Environment → Environment Variables* e clique
-em **Manual Deploy → Deploy latest commit**.
+As variáveis `DB_*` estão erradas. Nos logs do Render deve aparecer `MySQL conectado em ...`;
+se aparecer aviso de conexão, corrija em *Environment → Environment Variables* e clique em
+**Manual Deploy → Deploy latest commit**.
 
 **`Unknown column 'ativo'`**
 Você não rodou `npm run db:livros` no banco da nuvem. Volte ao passo 2.
 
-**Erro de SSL ao rodar `db:tabelas`**
-Acrescente `DB_SSL=true` no `.env` (e no Render, em *Environment Variables*) e repita.
-
 **Fui deslogado do nada**
 As sessões ficam na memória do servidor: todo deploy/reinício desloga geral. É esperado.
 
-**O banco ficou cheio / não aceita mais dados**
-O plano grátis do Filess.io tem 10 MB. Para um trabalho acadêmico é bastante, mas cadastros em
-massa podem estourar. Dá para apagar os dados de teste pelo painel do Filess.io.
+**O banco ficou cheio**
+5 GB de plano grátis é muita coisa para um trabalho acadêmico. Se chegar perto, apague os
+dados de teste pelo SQL Editor do TiDB (`DELETE FROM emprestimos;` etc.).

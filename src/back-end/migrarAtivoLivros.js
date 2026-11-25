@@ -24,6 +24,10 @@ async function principal() {
   try {
     conexao = await mysql.createConnection({
       host: process.env.DB_HOST || "localhost",
+      // MySQL hospedado costuma usar outra porta (o TiDB Cloud usa 4000).
+      port: Number(process.env.DB_PORT) || 3306,
+      // Alguns bancos hospedados só aceitam conexão criptografada: DB_SSL=true.
+      ...(String(process.env.DB_SSL || "").toLowerCase() === "true" ? { ssl: {} } : {}),
       user: process.env.DB_USER || "root",
       password: process.env.DB_PASSWORD || "",
       database: process.env.DB_NAME || "BIBLIOTECA_BD",
