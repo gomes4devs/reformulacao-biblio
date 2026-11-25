@@ -20,11 +20,14 @@ Tempo: 20 minutos. Se algo der errado, vá direto para **Problemas comuns** no f
 
 ```bash
 git status          # precisa dizer "working tree clean"
-git push origin main
+git push origin henriqu
 ```
 
 O Render não pega código do seu computador: ele pega do GitHub. Então esse push precisa ter
 acontecido, inclusive com o `render.yaml`.
+
+> A branch de trabalho é a **`henriqu`** — é ela que o Render observa (a `main` foi removida do
+> repositório). Confira o campo **Branch** ao criar o serviço.
 
 ---
 
@@ -155,10 +158,14 @@ O Render observa o GitHub e publica sozinho a cada push:
 ```bash
 git add .
 git commit -m "feat: o que você mudou"
-git push origin main
+git push origin henriqu
 ```
 
 Os dados do banco **não** são apagados nesse processo.
+
+> O repositório usa **apenas a branch `henriqu`** (a `main` foi removida). Por isso, no painel do
+> Render, o campo **Settings → Build & Deploy → Branch** precisa estar `henriqu` — se estiver
+> apontando para uma branch que não existe, o deploy falha.
 
 ---
 
