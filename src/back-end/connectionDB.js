@@ -32,11 +32,17 @@ let con = await mysql.createPool({
   database: process.env.DB_NAME  // O nome do banco entra aqui separadamente
 })
 
-con.getConnection(); /* O createPool é 'preguiçoso', só faz a conexão depois que ele é chamado de alguma 
-forma fazendo alguma operação, como getConnection, ou uma query etc.
-*/
-
-console.log("Connected!");
+/* O createPool é 'preguiçoso': ele só abre a conexão de verdade quando alguma
+   operação é feita (getConnection, query etc.). Por isso testamos uma conexão
+   aqui e, se o banco estiver desligado, apenas avisamos em vez de derrubar o
+   processo (antes, a promise rejeitada sem .catch() encerrava o servidor). */
+try {
+  const conexao = await con.getConnection();
+  conexao.release();
+  console.log("Connected!");
+} catch (erro) {
+  console.warn("Não foi possível conectar ao MySQL:", erro.code || erro.message);
+}
 
 export default con; /* Deixando a variável con exportável, em qualquer outro 
                         outro arquivo.js que criarmos podermos usar ela usando import. 

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biblio-Tech - Devolver Livro</title>
+    <link rel="stylesheet" href="../style.css">
+    <meta name="theme-color" content="#fdf7f0">
+    <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%2032%2032'%3E%3Crect%20width%3D'32'%20height%3D'32'%20rx%3D'9'%20fill%3D'%23e7744c'%2F%3E%3Crect%20x%3D'9'%20y%3D'7'%20width%3D'4'%20height%3D'18'%20rx%3D'2'%20fill%3D'white'%2F%3E%3Crect%20x%3D'14.5'%20y%3D'7'%20width%3D'4'%20height%3D'18'%20rx%3D'2'%20fill%3D'white'%20opacity%3D'0.85'%2F%3E%3Crect%20x%3D'20'%20y%3D'7'%20width%3D'4'%20height%3D'18'%20rx%3D'2'%20fill%3D'white'%20opacity%3D'0.7'%2F%3E%3C%2Fsvg%3E">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Nunito:wght@400;600;700;800&display=swap">
+</head>
+<body>
+    <div class="container-principal">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <div class="logo">
+                    <span class="logo-icon"><svg class="lucide lucide-book" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H19a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1H6.5a1 1 0 0 1 0-5H20" /> </svg></span>
+                    <span class="logo-text">Biblio<strong>Tech</strong></span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main layout: Sidebar + Conteúdo -->
+        <div class="layout">
+            <!-- Navegação Lateral -->
+            <nav class="sidebar">
+                <ul class="nav-menu">
+                    <li><a href="../index.html" class="nav-link"><span class="nav-icon"><svg class="lucide lucide-house" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8" /> <path d="M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" /> </svg></span><span class="nav-text">Início</span></a></li>
+                    <li><a href="catalogo-livros.html" class="nav-link"><span class="nav-icon"><svg class="lucide lucide-book-open" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M12 5v16" /> <path d="M20.001 19A2 2 0 0022 17V5a2 2 0 00-1.999-2L16 3.002A5 5 0 0012 5a5 5 0 00-4-2H4a2 2 0 00-2 2v12a2 2 0 001.999 2H8a5 5 0 014 2 5 5 0 014-2z" /> </svg></span><span class="nav-text">Livros</span></a></li>
+                    <li><a href="consulta.html" class="nav-link"><span class="nav-icon"><svg class="lucide lucide-chart-column" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M3 3v16a2 2 0 0 0 2 2h16" /> <path d="M18 17V9" /> <path d="M13 17V5" /> <path d="M8 17v-3" /> </svg></span><span class="nav-text">Consulta</span></a></li>
+                    <li><a href="usuarios-cadastrados.html" class="nav-link"><span class="nav-icon"><svg class="lucide lucide-users" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" /> <path d="M16 3.128a4 4 0 0 1 0 7.744" /> <path d="M22 21v-2a4 4 0 0 0-3-3.87" /> <circle cx="9" cy="7" r="4" /> </svg></span><span class="nav-text">Usuários</span></a></li>
+                    <li><a href="cadastro-usuarios.html" class="nav-link"><span class="nav-icon"><svg class="lucide lucide-user-plus" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" /> <circle cx="9" cy="7" r="4" /> <line x1="19" x2="19" y1="8" y2="14" /> <line x1="22" x2="16" y1="11" y2="11" /> </svg></span><span class="nav-text">Cadastrar Usuário</span></a></li>
+                    <li><a href="emprestimos.html" class="nav-link"><span class="nav-icon"><svg class="lucide lucide-arrow-left-right" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M8 3 4 7l4 4" /> <path d="M4 7h16" /> <path d="m16 21 4-4-4-4" /> <path d="M20 17H4" /> </svg></span><span class="nav-text">Emprestar Livro</span></a></li>
+                    <li><a href="cadastro-livros.html" class="nav-link"><span class="nav-icon"><svg class="lucide lucide-book-plus" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M12 7v6" /> <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H19a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1H6.5a1 1 0 0 1 0-5H20" /> <path d="M9 10h6" /> </svg></span><span class="nav-text">Cadastrar Livro</span></a></li>
+                    <li><a href="devolucao.html" class="nav-link ativo"><span class="nav-icon"><svg class="lucide lucide-undo-2" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M9 14 4 9l5-5" /> <path d="M4 9h10.5a5.5 5.5 0 0 1 5.5 5.5a5.5 5.5 0 0 1-5.5 5.5H11" /> </svg></span><span class="nav-text">Devolver Livro</span></a></li>
+                </ul>
+                <div class="sidebar-footer">
+                    <button class="btn-sair" type="button"><span class="nav-icon"><svg class="lucide lucide-log-out" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="m16 17 5-5-5-5" /> <path d="M21 12H9" /> <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" /> </svg></span><span class="nav-text">Sair</span></button>
+                </div>
+            </nav>
+
+            <!-- Conteúdo Principal -->
+            <main class="conteudo-principal">
+                <section class="pagina-devolucao">
+                    <!-- Título da página -->
+                    <div class="titulo-secao">
+                        <h2>Devolução de Livros</h2>
+                        <p class="subtitulo">Preencha os dados do livro e do aluno que está devolvendo</p>
+                    </div>
+
+                    <!-- Divisor -->
+                    <hr class="divisor-pagina">
+
+                    <!-- Formulário -->
+                    <form class="formulario-devolucao" id="formulario-devolucao">
+                        <!-- Empréstimo em aberto (seletor) -->
+                        <div class="linha-formulario-devolucao">
+                            <div class="grupo-formulario">
+                                <label for="select-emprestimo" class="label-formulario">Empréstimo em aberto</label>
+                                <select id="select-emprestimo" class="input-formulario" required>
+                                    <option value="">Carregando empréstimos…</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Data da devolução + botão -->
+                        <div class="linha-formulario-devolucao">
+                            <div class="grupo-formulario">
+                                <label for="input-data-devolucao" class="label-formulario">Data Devolução</label>
+                                <input 
+                                    type="text" 
+                                    id="input-data-devolucao" 
+                                    class="input-formulario" 
+                                    placeholder="DD/MM/AAAA"
+                                    required
+                                >
+                            </div>
+
+                            <button type="submit" class="btn-devolver-livro">Devolver Livro</button>
+                        </div>
+
+                        <p class="aviso-sessao" id="aviso-devolucao"></p>
+                    </form>
+
+                    <!-- Mensagem de Erro/Sucesso -->
+                    <div id="mensagem-feedback" class="mensagem-feedback" style="display: none;"></div>
+                </section>
+            </main>
+        </div>
+    </div>
+
+    <script src="../script.js"></script>
+</body>
+</html>

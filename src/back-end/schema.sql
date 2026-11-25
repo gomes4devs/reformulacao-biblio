@@ -5,7 +5,13 @@ USE BIBLIOTECA_BD;
 CREATE TABLE usuarios (
     id_usuario INT PRIMARY KEY AUTO_INCREMENT,
     nome VARCHAR(100) NOT NULL,
-    email VARCHAR(150) NOT NULL UNIQUE
+    email VARCHAR(150) NOT NULL UNIQUE,
+
+    -- Hash da senha (scrypt: "salt:hash"). Nunca guardamos texto puro.
+    senha_hash VARCHAR(255) NULL,
+
+    -- Papel do usuário: contas comuns usam o sistema, Devs gerenciam tudo.
+    papel ENUM('Usuario', 'Dev') NOT NULL DEFAULT 'Usuario'
 
 ) ENGINE = InnoDB;
 
@@ -24,6 +30,10 @@ CREATE TABLE livros (
     ano_publicacao YEAR,
     sinopse TEXT,
     id_categoria_fk INT NOT NULL,
+
+    -- Exclusão do catálogo é lógica: o livro some das telas, mas as linhas de
+    -- acervo e emprestimos continuam no banco para preservar o histórico.
+    ativo TINYINT NOT NULL DEFAULT 1,
 
     CONSTRAINT fk_livros_categorias
         FOREIGN KEY (id_categoria_fk)

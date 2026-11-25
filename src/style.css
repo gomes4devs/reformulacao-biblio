@@ -1,26 +1,86 @@
+/* =========================================================
+   BIBLIO-TECH — FOLHA DE ESTILO
+   Tema: biblioteca aconchegante (papel, terracota e sálvia)
+   ========================================================= */
+
+:root {
+    --bg: #fdf7f0;
+    --surface: #ffffff;
+    --surface-soft: #fdf3e8;
+    --ink: #382f29;
+    --ink-soft: #6c5f56;
+    --muted: #9b8b7f;
+    --line: #f1e4d7;
+
+    --primary: #e7744c;
+    --primary-dark: #cd5f39;
+    --primary-soft: #fbe4d8;
+
+    --sage: #76a465;
+    --sage-soft: #e7f1de;
+
+    --sun: #f0b955;
+    --sun-soft: #fdf0d4;
+
+    --danger: #cf5a41;
+    --danger-soft: #fbe0d9;
+
+    --radius-xl: 26px;
+    --radius-lg: 20px;
+    --radius: 14px;
+    --radius-sm: 10px;
+
+    --shadow-sm: 0 2px 8px rgba(120, 88, 58, 0.06);
+    --shadow: 0 18px 34px -22px rgba(120, 88, 58, 0.45);
+    --shadow-pop: 0 22px 40px -18px rgba(120, 88, 58, 0.35);
+
+    --font-title: "Baloo 2", "Trebuchet MS", "Segoe UI", sans-serif;
+    --font-body: "Nunito", "Segoe UI", Arial, sans-serif;
+}
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-html,
+html {
+    scroll-behavior: smooth;
+}
+
 body {
     min-height: 100%;
+    font-family: var(--font-body);
+    font-size: 15px;
+    color: var(--ink);
+    background-color: var(--bg);
+    background-image:
+        radial-gradient(760px 520px at 8% -8%, rgba(231, 116, 76, 0.13), transparent 62%),
+        radial-gradient(620px 460px at 102% 4%, rgba(240, 185, 85, 0.16), transparent 60%),
+        radial-gradient(720px 620px at 92% 108%, rgba(118, 164, 101, 0.13), transparent 62%);
+    background-attachment: fixed;
+    -webkit-font-smoothing: antialiased;
 }
 
-body {
-    font-family: Arial, Helvetica, sans-serif;
-    background-color: #f5f7fa;
-    color: #17233c;
+::selection {
+    background-color: var(--primary-soft);
+    color: var(--primary-dark);
 }
 
+:focus-visible {
+    outline: 3px solid rgba(231, 116, 76, 0.45);
+    outline-offset: 2px;
+}
 
 /* =========================================================
-   ESTRUTURA PRINCIPAL
+   ESTRUTURA
    ========================================================= */
 
 .container-principal {
+    min-height: 100vh;
+}
+
+.layout {
     min-height: 100vh;
 }
 
@@ -32,55 +92,66 @@ body {
     position: fixed;
     top: 0;
     left: 0;
-
-    width: 226px;
-    height: 90px;
-
-    background-color: #ffffff;
-
-    border-right: 1px solid #cfd3d8;
-    border-bottom: 1px solid #e1e4e8;
-
     z-index: 100;
-}
 
-.header-content {
-    width: 100%;
-    height: 100%;
+    width: 252px;
+    height: 96px;
 
     display: flex;
     align-items: center;
 
-    padding: 0 10px;
+    padding: 0 18px;
+
+    background-color: transparent;
+}
+
+.header-content {
+    width: 100%;
+    display: flex;
+    align-items: center;
 }
 
 .logo {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 11px;
+    text-decoration: none;
 }
 
 .logo-icon {
-    font-size: 28px;
-    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 42px;
+    height: 42px;
+
+    border-radius: 13px;
+
+    color: #ffffff;
+    background-image: linear-gradient(140deg, var(--primary), #f0945f);
+    box-shadow: 0 8px 16px -6px rgba(231, 116, 76, 0.75);
+    transform: rotate(-4deg);
 }
 
-.logo h1 {
-    font-size: 24px;
+.logo-icon svg {
+    width: 22px;
+    height: 22px;
+}
+
+.logo-text {
+    font-family: var(--font-title);
+    font-size: 25px;
     font-weight: 700;
-    color: #111111;
+    letter-spacing: -0.4px;
+    color: var(--ink);
     white-space: nowrap;
 }
 
-
-/* =========================================================
-   LAYOUT
-   ========================================================= */
-
-.layout {
-    min-height: 100vh;
+.logo-text strong {
+    color: var(--primary);
+    font-weight: 800;
 }
-
 
 /* =========================================================
    SIDEBAR
@@ -88,179 +159,216 @@ body {
 
 .sidebar {
     position: fixed;
-
-    top: 90px;
+    top: 96px;
     left: 0;
     bottom: 0;
+    z-index: 90;
 
-    width: 226px;
+    width: 252px;
 
     display: flex;
     flex-direction: column;
 
-    background-color: #ffffff;
+    padding: 4px 14px 20px;
 
-    border-right: 1px solid #cfd3d8;
-
-    padding: 10px 0 20px;
-
-    z-index: 90;
+    overflow-y: auto;
 }
-
-
-/* ---------- Menu ---------- */
 
 .nav-menu {
     list-style: none;
-
     display: flex;
     flex-direction: column;
-
-    width: 100%;
-}
-
-.nav-menu li {
-   padding: 0;
-   margin: 0;
+    gap: 3px;
 }
 
 .nav-link {
-    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    padding: 9px 12px;
+
+    border-radius: 13px;
+
+    color: var(--ink-soft);
+    text-decoration: none;
+
+    font-size: 14.5px;
+    font-weight: 700;
+
+    transition: background-color 0.18s ease, color 0.18s ease, transform 0.18s ease;
+}
+
+.nav-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    width: 32px;
+    height: 32px;
+
+    border-radius: 10px;
+
+    color: var(--ink-soft);
+    background-color: rgba(255, 255, 255, 0.75);
+
+    box-shadow: inset 0 0 0 1px var(--line);
+
+    transition: background-color 0.18s ease, color 0.18s ease;
+}
+
+.nav-icon svg {
+    width: 18px;
+    height: 18px;
+}
+
+.nav-link:hover {
+    color: var(--ink);
+    background-color: rgba(255, 255, 255, 0.85);
+}
+
+.nav-link:hover .nav-icon {
+    color: var(--primary);
+    background-color: var(--primary-soft);
+}
+
+.nav-link.ativo {
+    color: var(--primary-dark);
+    background-color: var(--surface);
+    box-shadow: var(--shadow-sm);
+}
+
+.nav-link.ativo .nav-icon {
+    color: #ffffff;
+    background-image: linear-gradient(140deg, var(--primary), #f0945f);
+    box-shadow: 0 6px 12px -5px rgba(231, 116, 76, 0.8);
+    transform: rotate(-3deg);
+}
+
+.sidebar-footer {
+    margin-top: auto;
+    padding-top: 14px;
+}
+
+.btn-sair {
+    width: 100%;
 
     display: flex;
     align-items: center;
+    gap: 12px;
 
-    min-height: 42px;
-
-    padding: 10px 16px;
-
-    gap: 30px;
-
-    color: #1b2943;
-    text-decoration: none;
-
-    font-size: 14px;
-    font-weight: 400;
-
-    transition:
-        background-color 0.2s ease,
-        color 0.2s ease;
-}
-
-.nav-link img {
-    width: 26px;
-    height: 26px;
-    object-fit: contain;
-    display: block;
-    flex-shrink: 0; /* Evita que o ícone encolha */
-}
-
-/*
-   Os emojis do HTML ficam antes do texto.
-   Este espaçamento ajuda a manter a aparência
-   semelhante à imagem de referência.
-*/
-
-.nav-link::first-letter {
-    font-size: 20px;
-}
-
-
-/* ---------- Hover ---------- */
-
-.nav-link:hover {
-    background-color: #f1f4f7;
-    color: #111c31;
-}
-
-
-/* ---------- Item ativo ---------- */
-
-.nav-link.ativo {
-    background-color: #f5f7fa;
-    color: #17233c;
-    font-weight: 500;
-}
-
-
-/* =========================================================
-   BOTÃO SAIR
-   ========================================================= */
-
-.btn-sair {
-    margin-top: auto;
-
-    width: 100%;
-
-    padding: 12px 20px 12px 70px;
+    padding: 9px 12px;
 
     border: none;
-    background-color: transparent;
+    border-radius: 13px;
 
-    color: #17233c;
+    background-color: transparent;
+    color: var(--muted);
 
     font-family: inherit;
-    font-size: 14px;
+    font-size: 14.5px;
+    font-weight: 700;
     text-align: left;
 
     cursor: pointer;
 
-    transition:
-        background-color 0.2s ease,
-        color 0.2s ease;
+    transition: background-color 0.18s ease, color 0.18s ease;
+}
+
+.btn-sair .nav-icon {
+    background-color: transparent;
+    box-shadow: none;
+    color: var(--muted);
 }
 
 .btn-sair:hover {
-    background-color: #f1f4f7;
-    color: #111111;
+    color: var(--danger);
+    background-color: rgba(255, 255, 255, 0.85);
 }
 
-.btn-sair img {
-    width: 26px;
-    height: 26px;
-    margin-top: 5px;
-    
-
+.btn-sair:hover .nav-icon {
+    color: var(--danger);
+    background-color: var(--danger-soft);
 }
 
 /* =========================================================
-   CONTEÚDO PRINCIPAL
+   CONTEÚDO
    ========================================================= */
 
 .conteudo-principal {
-    margin-left: 226px;
-
+    margin-left: 252px;
     min-height: 100vh;
-
-    padding: 48px 21px 30px;
+    padding: 44px 30px 56px;
 }
 
+.pagina-inicio,
+.pagina-catalogo,
+.pagina-usuarios,
+.pagina-cadastro-usuarios,
+.pagina-cadastro-livro,
+.pagina-emprestar-livro,
+.pagina-devolucao {
+    width: 100%;
+    max-width: 1120px;
+}
 
-/* =========================================================
-   TÍTULO DA PÁGINA
-   ========================================================= */
+.pagina-cadastro-usuarios {
+    max-width: 620px;
+}
+
+.pagina-cadastro-livro,
+.pagina-emprestar-livro {
+    max-width: 940px;
+}
+
+.pagina-devolucao {
+    max-width: 900px;
+}
+
+/* ---------- Título da página ---------- */
 
 .titulo-secao {
-    margin-bottom: 35px;
+    margin-bottom: 26px;
 }
 
 .titulo-secao h2 {
-    margin-bottom: 10px;
+    position: relative;
 
-    color: #111111;
-
-    font-size: 30px;
+    font-family: var(--font-title);
+    font-size: 33px;
     font-weight: 700;
-    line-height: 1.1;
+    line-height: 1.15;
+    letter-spacing: -0.6px;
+
+    color: var(--ink);
+
+    padding-bottom: 12px;
+}
+
+.titulo-secao h2::after {
+    content: "";
+
+    position: absolute;
+    left: 2px;
+    bottom: 0;
+
+    width: 46px;
+    height: 6px;
+
+    border-radius: 999px;
+    background-image: linear-gradient(90deg, var(--primary), var(--sun));
 }
 
 .subtitulo {
-    color: #17233c;
+    margin-top: 9px;
 
-    font-size: 16px;
-    font-weight: 400;
+    color: var(--muted);
+
+    font-size: 15px;
+    font-weight: 600;
 }
-
 
 /* =========================================================
    CARDS DE MÉTRICAS
@@ -268,39 +376,37 @@ body {
 
 .cards-metricas {
     display: grid;
-
     grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
 
-    gap: 7px;
-
-    width: 100%;
-
-    margin-bottom: 8px;
+    margin-bottom: 22px;
 }
 
 .card {
-    min-height: 134px;
-
-    background-color: #ffffff;
-
-    border: 1px solid #bfc3c8;
-    border-radius: 5px;
-
-    padding: 14px 22px;
+    position: relative;
 
     display: grid;
-
-    grid-template-columns: 65px 1fr;
+    grid-template-columns: 62px minmax(0, 1fr);
     grid-template-rows: auto auto;
-
-    column-gap: 8px;
+    column-gap: 15px;
     align-items: center;
 
-    position: relative;
+    min-height: 128px;
+    padding: 20px 22px;
+
+    background-color: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-xl);
+
+    box-shadow: var(--shadow-sm);
+
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-
-/* ---------- Ícone ---------- */
+.card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow);
+}
 
 .card-icon {
     grid-column: 1;
@@ -310,313 +416,305 @@ body {
     align-items: center;
     justify-content: center;
 
-    font-size: 45px;
+    width: 60px;
+    height: 60px;
+
+    border-radius: 18px;
+
+    font-size: 26px;
     line-height: 1;
+
+    color: var(--primary-dark);
+    background-color: var(--primary-soft);
 }
 
+.card:nth-child(2) .card-icon {
+    color: #9a7517;
+    background-color: var(--sun-soft);
+}
 
-/* ---------- Número ---------- */
+.card:nth-child(3) .card-icon {
+    color: #4c7a3d;
+    background-color: var(--sage-soft);
+}
+
+.card-icon svg {
+    width: 27px;
+    height: 27px;
+}
 
 .card-numero {
     grid-column: 2;
-    grid-row: 1 / 3;
+    grid-row: 2;
 
-    color: #050505;
-
-    font-size: 28px;
+    font-family: var(--font-title);
+    font-size: 34px;
     font-weight: 700;
+    line-height: 1;
+
+    color: var(--ink);
 }
-
-
-/*
-   O label é mantido no HTML, mas na imagem de referência
-   o título do card aparece acima do número.
-
-   Como o HTML atual coloca o número e depois o label,
-   fazemos uma pequena adaptação usando posicionamento.
-*/
 
 .card-label {
-    position: absolute;
+    grid-column: 2;
+    grid-row: 1;
 
-    top: 15px;
-    left: 22px;
+    align-self: end;
 
-    color: #17233c;
+    color: var(--muted);
 
-    font-size: 17px;
+    font-size: 13px;
     font-weight: 700;
+    letter-spacing: 0.2px;
 }
-
 
 /* =========================================================
-   TABELA DE EMPRÉSTIMOS
+   CAIXAS DE CONTEÚDO / TABELAS
    ========================================================= */
 
-.emprestimos-recentes {
-    width: 100%;
+.emprestimos-recentes,
+.tabela-container,
+.tabela-usuarios-container {
+    background-color: var(--surface);
 
-    background-color: #ffffff;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
 
-    border: 1px solid #bfc3c8;
-    border-radius: 5px;
+    box-shadow: var(--shadow-sm);
 
-    padding: 0 10px 10px;
+    padding: 16px 18px 18px;
+
+    margin-bottom: 20px;
+
+    overflow-x: auto;
 }
 
-
-/* ---------- Título ---------- */
-
-.emprestimos-recentes h3 {
-    padding: 6px 0 8px;
-
-    color: #17233c;
-
-    font-size: 16px;
+.emprestimos-recentes h3,
+.titulo-relatorio {
+    font-family: var(--font-title);
+    font-size: 19px;
     font-weight: 700;
+    letter-spacing: -0.2px;
+
+    color: var(--ink);
+
+    margin-bottom: 12px;
 }
 
-
-/* ---------- Tabela ---------- */
-
-.tabela-emprestimos {
+.tabela-emprestimos,
+.tabela-livros,
+.tabela-usuarios {
     width: 100%;
-
     border-collapse: collapse;
-
-    table-layout: fixed;
 }
 
+.tabela-emprestimos thead th,
+.tabela-livros th,
+.tabela-usuarios th {
+    padding: 10px 10px 12px;
 
-/* ---------- Cabeçalho ---------- */
+    color: var(--muted);
 
-.tabela-emprestimos thead th {
-    padding: 7px 5px 9px;
-
-    color: #17233c;
-
-    font-size: 12px;
-    font-weight: 700;
-
-    text-align: center;
-
-    border-bottom: 1px solid #cfd3d8;
-}
-
-
-/* ---------- Células ---------- */
-
-.tabela-emprestimos tbody td {
-    padding: 10px 5px;
-
-    color: #17233c;
-
-    font-size: 12px;
-    line-height: 1.45;
-
-    text-align: center;
-
-    vertical-align: middle;
-}
-
-
-/* ---------- Primeira coluna ---------- */
-
-.tabela-emprestimos th:first-child,
-.tabela-emprestimos td:first-child {
+    font-size: 11.5px;
+    font-weight: 800;
+    letter-spacing: 0.7px;
+    text-transform: uppercase;
     text-align: left;
+
+    border-bottom: 1px solid var(--line);
 }
 
+.tabela-emprestimos tbody td,
+.tabela-livros tbody td,
+.tabela-usuarios tbody td {
+    padding: 12px 10px;
 
-/* =========================================================
-   STATUS
-   ========================================================= */
+    color: var(--ink-soft);
 
-/*
-   Como os status são provavelmente inseridos
-   pelo JavaScript dentro das células, estas classes
-   podem ser utilizadas pelo seu script:
-   
-   <span class="status ativo">Ativo</span>
-   <span class="status devolvido">Devolvido</span>
-*/
+    font-size: 13.5px;
+    font-weight: 600;
+    line-height: 1.45;
+    text-align: left;
 
-.status {
+    border-bottom: 1px solid #f7efe6;
+}
+
+.tabela-emprestimos tbody tr:last-child td,
+.tabela-livros tbody tr:last-child td,
+.tabela-usuarios tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.tabela-emprestimos tbody tr,
+.tabela-livros tbody tr,
+.tabela-usuarios tbody tr {
+    transition: background-color 0.16s ease;
+}
+
+.tabela-emprestimos tbody tr:hover,
+.tabela-livros tbody tr:hover,
+.tabela-usuarios tbody tr:hover {
+    background-color: #fdf7f1;
+}
+
+.tabela-emprestimos tbody td:first-child,
+.tabela-livros tbody td:first-child,
+.tabela-usuarios tbody td:first-child {
+    color: var(--ink);
+    font-weight: 800;
+}
+
+.tabela-emprestimos td[colspan],
+.tabela-livros td[colspan],
+.tabela-usuarios td[colspan] {
+    padding: 30px 10px;
+    text-align: center;
+    color: var(--muted);
+    font-weight: 600;
+}
+
+/* ---------- Chips de status ---------- */
+
+.chip {
     display: inline-flex;
-
     align-items: center;
     justify-content: center;
 
-    min-width: 57px;
+    padding: 5px 12px;
 
-    padding: 4px 11px;
-
-    border-radius: 9px;
+    border-radius: 999px;
 
     font-size: 12px;
-    font-weight: 400;
+    font-weight: 800;
 }
 
-.status.ativo {
-    background-color: #c8f7d0;
-    color: #234f2c;
+.chip-ativo {
+    color: #3f6b32;
+    background-color: var(--sage-soft);
 }
 
-.status.devolvido {
-    background-color: #dedede;
-    color: #26334a;
+.chip-devolvido {
+    color: #6c5f56;
+    background-color: #f0ece8;
 }
-
-
-/* =========================================================
-   BIBLIO-TECH — CATÁLOGO DE LIVROS
-   Estilos para a página de catálogo
-   ========================================================= */
-
-
-/* =========================================================
-   PÁGINA CATÁLOGO
-   ========================================================= */
-
-.pagina-catalogo {
-    width: 100%;
-}
-
-
-/* =========================================================
-   TÍTULO E SUBTÍTULO
-   ========================================================= */
-
-.titulo-secao {
-    margin-bottom: 35px;
-}
-
-.titulo-secao h2 {
-    margin-bottom: 10px;
-
-    color: #111111;
-
-    font-size: 30px;
-    font-weight: 700;
-    line-height: 1.1;
-}
-
-.subtitulo {
-    color: #17233c;
-
-    font-size: 16px;
-    font-weight: 400;
-}
-
 
 /* =========================================================
    FILTROS E BUSCA
    ========================================================= */
 
-.filtros-container {
-    background-color: #ffffff;
-
-    border: 1px solid #bfc3c8;
-    border-radius: 5px;
-
-    padding: 15px;
-
-    margin-bottom: 20px;
-
+.filtros-container,
+.filtro-usuarios {
     display: flex;
     flex-wrap: wrap;
-    gap: 10px;
-
     align-items: flex-end;
+    gap: 12px;
+
+    padding: 14px;
+
+    margin-bottom: 18px;
+
+    background-color: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
 }
 
-
-/* ---------- Grupo de Filtros ---------- */
-
 .filtro-pesquisa {
-    flex: 1;
-    min-width: 300px;
+    flex: 1 1 300px;
+    min-width: 220px;
 }
 
 .filtro-dropdown {
     position: relative;
     flex: 0 1 auto;
-    min-width: 200px;
+    min-width: 195px;
 }
 
+.input-pesquisa,
+.input-pesquisa-usuarios,
+.btn-dropdown {
+    min-height: 44px;
+}
 
-/* ---------- Input de Pesquisa ---------- */
-
-.input-pesquisa {
+.input-pesquisa,
+.input-pesquisa-usuarios {
     width: 100%;
 
-    padding: 10px 12px;
+    padding: 10px 14px;
 
-    border: 1px solid #bfc3c8;
-    border-radius: 5px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
 
-    background-color: #ffffff;
-    color: #17233c;
+    background-color: #fdfaf6;
+    color: var(--ink);
 
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: inherit;
     font-size: 14px;
+    font-weight: 600;
 
-    transition: all 0.2s ease;
+    transition: border-color 0.18s ease, box-shadow 0.18s ease, background-color 0.18s ease;
 }
 
-.input-pesquisa::placeholder {
-    color: #8a92a6;
+.input-pesquisa::placeholder,
+.input-pesquisa-usuarios::placeholder {
+    color: var(--muted);
+    font-weight: 600;
 }
 
-.input-pesquisa:focus {
+.input-pesquisa:focus,
+.input-pesquisa-usuarios:focus {
     outline: none;
-    border-color: #111111;
-    box-shadow: 0 0 0 2px rgba(17, 17, 17, 0.1);
+    background-color: var(--surface);
+    border-color: var(--primary);
+    box-shadow: 0 0 0 4px rgba(231, 116, 76, 0.16);
 }
-
-
-/* ---------- Botão Dropdown ---------- */
 
 .btn-dropdown {
     width: 100%;
-
-    padding: 10px 12px;
-
-    background-color: #ffffff;
-    color: #17233c;
-
-    border: 1px solid #bfc3c8;
-    border-radius: 5px;
-
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 14px;
-    font-weight: 400;
-
-    cursor: pointer;
 
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 10px;
 
-    transition: all 0.2s ease;
+    padding: 10px 14px;
 
-    position: relative;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+
+    background-color: #fdfaf6;
+    color: var(--ink-soft);
+
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition: border-color 0.18s ease, box-shadow 0.18s ease, background-color 0.18s ease;
 }
 
 .btn-dropdown:hover {
-    border-color: #111111;
-    background-color: #f5f7fa;
+    border-color: #e6d3c1;
+    background-color: var(--surface);
 }
 
 .btn-dropdown.ativo {
-    border-color: #111111;
-    background-color: #f5f7fa;
+    border-color: var(--primary);
+    background-color: var(--surface);
+    box-shadow: 0 0 0 4px rgba(231, 116, 76, 0.16);
+}
+
+.dropdown-label {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .dropdown-icon {
-    font-size: 12px;
-    line-height: 1;
+    flex-shrink: 0;
+    font-size: 10px;
+    color: var(--muted);
     transition: transform 0.2s ease;
 }
 
@@ -624,1192 +722,309 @@ body {
     transform: rotate(180deg);
 }
 
-
-/* ---------- Menu Dropdown ---------- */
-
 .dropdown-menu {
     position: absolute;
-
-    top: 100%;
+    top: calc(100% + 8px);
     left: 0;
     right: 0;
-
-    background-color: #ffffff;
-
-    border: 1px solid #bfc3c8;
-    border-top: none;
-    border-radius: 0 0 5px 5px;
-
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    z-index: 50;
 
     display: none;
     flex-direction: column;
 
-    z-index: 50;
+    padding: 6px;
 
-    margin-top: -1px;
+    background-color: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+
+    box-shadow: var(--shadow-pop);
 }
 
 .dropdown-menu.ativo {
     display: flex;
+    animation: surge 0.16s ease;
+}
+
+@keyframes surge {
+    from {
+        opacity: 0;
+        transform: translateY(-6px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .dropdown-item {
-    padding: 10px 12px;
+    display: block;
 
-    color: #17233c;
+    padding: 9px 12px;
+
+    border-radius: var(--radius-sm);
+
+    color: var(--ink-soft);
     text-decoration: none;
 
-    font-size: 14px;
+    font-size: 13.5px;
+    font-weight: 700;
 
-    transition: all 0.2s ease;
-
-    border-bottom: 1px solid #f0f0f0;
-
-    cursor: pointer;
-
-    display: block;
+    transition: background-color 0.16s ease, color 0.16s ease;
 }
 
-.dropdown-item:last-child {
-    border-bottom: none;
-}
-
-.dropdown-item:hover {
-    background-color: #f5f7fa;
-    color: #111111;
-    padding-left: 15px;
-}
-
+.dropdown-item:hover,
 .dropdown-item.selecionado {
-    background-color: #f5f7fa;
-    color: #111111;
-    font-weight: 500;
+    color: var(--primary-dark);
+    background-color: var(--primary-soft);
 }
 
+.btn-buscar,
+.btn-buscar-usuarios {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
 
-/* ---------- Botão Buscar ---------- */
-
-.btn-buscar {
-    padding: 10px 24px;
-
-    background-color: #17233c;
-    color: #ffffff;
+    min-height: 44px;
+    padding: 10px 26px;
 
     border: none;
-    border-radius: 5px;
+    border-radius: 999px;
 
-    font-family: Arial, Helvetica, sans-serif;
+    background-image: linear-gradient(140deg, var(--primary), #f0945f);
+    color: #ffffff;
+
+    font-family: inherit;
     font-size: 14px;
-    font-weight: 600;
+    font-weight: 800;
 
     cursor: pointer;
 
-    transition: all 0.2s ease;
+    box-shadow: 0 10px 18px -10px rgba(231, 116, 76, 0.9);
 
-    white-space: nowrap;
+    transition: transform 0.16s ease, box-shadow 0.16s ease, filter 0.16s ease;
+}
 
-    height: 40px;
+.btn-buscar:hover,
+.btn-buscar-usuarios:hover {
+    transform: translateY(-1px);
+    filter: saturate(1.08);
+    box-shadow: 0 14px 22px -10px rgba(231, 116, 76, 0.95);
+}
+
+.btn-buscar:active,
+.btn-buscar-usuarios:active {
+    transform: translateY(0) scale(0.985);
+}
+
+/* ---------- Busca de usuários ---------- */
+
+.filtro-usuarios-container {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px;
+
+    width: 100%;
+}
+
+.input-pesquisa-usuarios-wrapper {
+    position: relative;
+    flex: 1 1 280px;
+    min-width: 220px;
+}
+
+.icon-pesquisa {
+    position: absolute;
+    top: 50%;
+    left: 14px;
 
     display: flex;
     align-items: center;
     justify-content: center;
+
+    transform: translateY(-50%);
+
+    color: var(--muted);
+    pointer-events: none;
 }
 
-.btn-buscar:hover {
-    background-color: #0f1820;
+.icon-pesquisa svg {
+    width: 17px;
+    height: 17px;
 }
 
-.btn-buscar:active {
-    transform: scale(0.98);
+.input-pesquisa-usuarios {
+    padding-left: 42px;
 }
-
 
 /* =========================================================
-   DIVISOR
+   DISPONIBILIDADE / VAZIO
    ========================================================= */
 
-.divisor {
-    border: none;
-    border-top: 1px solid #bfc3c8;
-    margin: 20px 0;
-}
-
-
-/* =========================================================
-   TABELA DE LIVROS
-   ========================================================= */
-
-.tabela-container {
-    background-color: #ffffff;
-
-    border: 1px solid #bfc3c8;
-    border-radius: 5px;
-
-    padding: 10px;
-
-    margin-bottom: 20px;
-
-    overflow-x: auto;
-}
-
-.tabela-livros {
-    width: 100%;
-
-    border-collapse: collapse;
-
-    table-layout: fixed;
-}
-
-
-/* ---------- Cabeçalho ---------- */
-
-.tabela-livros thead {
-    background-color: #f5f7fa;
-}
-
-.tabela-livros th {
-    padding: 10px 8px;
-
-    color: #17233c;
-
-    font-size: 13px;
-    font-weight: 700;
-
-    text-align: center;
-
-    border-bottom: 1px solid #bfc3c8;
-}
-
-.tabela-livros th:first-child {
-    text-align: left;
-}
-
-
-/* ---------- Células ---------- */
-
-.tabela-livros tbody td {
-    padding: 12px 8px;
-
-    color: #17233c;
-
-    font-size: 13px;
-    line-height: 1.4;
-
-    text-align: center;
-
-    border-bottom: 1px solid #e5e8ed;
-}
-
-.tabela-livros tbody td:first-child {
-    text-align: left;
-}
-
-
-/* ---------- Hover nas Linhas ---------- */
-
-.tabela-livros tbody tr:hover {
-    background-color: #f9fafb;
-}
-
-
-/* ---------- Status de Disponibilidade ---------- */
-
-.badge-disponivel {
+.disponivel,
+.indisponivel {
     display: inline-flex;
-
     align-items: center;
     justify-content: center;
 
-    min-width: 80px;
+    min-width: 104px;
+    padding: 5px 12px;
 
-    padding: 4px 10px;
-
-    background-color: #c8f7d0;
-    color: #234f2c;
-
-    border-radius: 5px;
+    border-radius: 999px;
 
     font-size: 12px;
-    font-weight: 600;
+    font-weight: 800;
 }
 
-.badge-indisponivel {
-    display: inline-flex;
-
-    align-items: center;
-    justify-content: center;
-
-    min-width: 80px;
-
-    padding: 4px 10px;
-
-    background-color: #dedede;
-    color: #26334a;
-
-    border-radius: 5px;
-
-    font-size: 12px;
-    font-weight: 600;
+.disponivel {
+    color: #3f6b32;
+    background-color: var(--sage-soft);
 }
 
+.indisponivel {
+    color: #8b6a45;
+    background-color: #f5ece1;
+}
 
-/* =========================================================
-   MENSAGEM DE VAZIO
-   ========================================================= */
-
-.mensagem-vazia {
+.mensagem-vazia,
+.mensagem-vazia-usuarios {
+    padding: 34px;
     text-align: center;
-
-    padding: 40px;
-
-    color: #8a92a6;
-
-    font-size: 16px;
+    color: var(--muted);
+    font-weight: 600;
 }
-
 
 /* =========================================================
    PAGINAÇÃO
    ========================================================= */
 
-.paginacao-container {
+.paginacao-container,
+.paginacao-usuarios {
     display: flex;
-
-    justify-content: center;
     align-items: center;
-
+    justify-content: center;
     gap: 8px;
 
-    margin-top: 20px;
+    margin-top: 4px;
+    padding-bottom: 6px;
 }
 
+.btn-paginacao,
+.btn-paginacao-usuarios,
+.numeros-paginas button,
+.numeros-pagina-usuarios button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
 
-/* ---------- Botões de Navegação ---------- */
+    width: 38px;
+    height: 38px;
 
-.btn-paginacao {
-    width: 36px;
-    height: 36px;
+    border: 1px solid var(--line);
+    border-radius: 12px;
 
-    background-color: #ffffff;
-    color: #17233c;
+    background-color: var(--surface);
+    color: var(--ink-soft);
 
-    border: 1px solid #bfc3c8;
-    border-radius: 5px;
-
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 14px;
-    font-weight: 600;
+    font-family: inherit;
+    font-size: 13.5px;
+    font-weight: 800;
 
     cursor: pointer;
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    transition: all 0.2s ease;
+    transition: background-color 0.16s ease, color 0.16s ease, border-color 0.16s ease, transform 0.16s ease;
 }
 
-.btn-paginacao:hover:not(:disabled) {
-    border-color: #111111;
-    background-color: #f5f7fa;
+.btn-paginacao:hover:not(:disabled),
+.btn-paginacao-usuarios:hover:not(:disabled),
+.numeros-paginas button:hover,
+.numeros-pagina-usuarios button:hover {
+    border-color: var(--primary);
+    color: var(--primary-dark);
+    background-color: var(--primary-soft);
+    transform: translateY(-1px);
 }
 
-.btn-paginacao:disabled {
-    opacity: 0.5;
+.btn-paginacao:disabled,
+.btn-paginacao-usuarios:disabled {
+    opacity: 0.45;
     cursor: not-allowed;
 }
 
-
-/* ---------- Números de Página ---------- */
-
-.numeros-paginas {
+.numeros-paginas,
+.numeros-pagina-usuarios {
     display: flex;
-    gap: 4px;
+    gap: 6px;
 }
 
-.numero-pagina {
-    min-width: 36px;
-    height: 36px;
-
-    background-color: #ffffff;
-    color: #17233c;
-
-    border: 1px solid #bfc3c8;
-    border-radius: 5px;
-
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 14px;
-    font-weight: 600;
-
-    cursor: pointer;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    transition: all 0.2s ease;
-}
-
-.numero-pagina:hover {
-    border-color: #111111;
-    background-color: #f5f7fa;
-}
-
-.numero-pagina.ativo {
-    background-color: #17233c;
+.numeros-paginas button.pagina-ativa,
+.numeros-pagina-usuarios button.pagina-ativa {
+    border-color: transparent;
     color: #ffffff;
-    border-color: #17233c;
+    background-image: linear-gradient(140deg, var(--primary), #f0945f);
+    box-shadow: 0 10px 16px -10px rgba(231, 116, 76, 0.95);
 }
-
 
 /* =========================================================
-   PÁGINA DE RELATÓRIOS E CONSULTAS
+   DIVISOR
    ========================================================= */
 
-/* ---------- Seção de Relatório ---------- */
+.divisor,
+.divisor-pagina {
+    border: none;
+    border-top: 1px dashed #eadccd;
+    margin: 22px 0;
+}
+
+/* =========================================================
+   RELATÓRIOS
+   ========================================================= */
 
 .relatorio-secao {
-    margin-bottom: 40px;
+    margin-bottom: 30px;
 }
-
-.titulo-relatorio {
-    margin-bottom: 20px;
-
-    color: #17233c;
-
-    font-size: 18px;
-    font-weight: 700;
-
-    line-height: 1.2;
-}
-
-
-/* ---------- Cards de Métricas (Relatório) ---------- */
 
 .cards-metricas-relatorio {
     display: grid;
-
     grid-template-columns: repeat(3, minmax(0, 1fr));
-
-    gap: 15px;
-
-    width: 100%;
-
-    margin-bottom: 20px;
+    gap: 16px;
 }
 
-.card-relatorio {
-    min-height: 150px;
+.cards-metricas .card-icon.card-icon--alerta {
+    color: var(--danger);
+    background-color: var(--danger-soft);
+}
 
-    background-color: #ffffff;
+.cards-metricas .card-numero.card-numero--alerta {
+    color: var(--danger);
+}
 
-    border: 1px solid #bfc3c8;
-    border-radius: 8px;
+/* =========================================================
+   FORMULÁRIOS
+   ========================================================= */
 
-    padding: 20px;
-
+.formulario-cadastro-usuarios,
+.formulario-cadastro-livro,
+.formulario-emprestar-livro,
+.formulario-devolucao {
     display: flex;
     flex-direction: column;
+    gap: 22px;
 
-    justify-content: space-between;
+    margin-top: 4px;
+    padding: 26px;
 
-    transition: all 0.2s ease;
+    background-color: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow);
 }
-
-.card-relatorio:hover {
-    border-color: #111111;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-}
-
-
-/* ---------- Header do Card ---------- */
-
-.card-header-relatorio {
-    display: flex;
-    align-items: center;
-
-    gap: 10px;
-
-    margin-bottom: 15px;
-}
-
-.card-icon-relatorio {
-    font-size: 32px;
-    line-height: 1;
-}
-
-.card-label-relatorio {
-    color: #17233c;
-
-    font-size: 14px;
-    font-weight: 600;
-
-    line-height: 1.2;
-}
-
-
-/* ---------- Número do Card ---------- */
-
-.card-numero-relatorio,
-.card-numero-relatorio-destaque {
-    color: #050505;
-
-    font-size: 36px;
-    font-weight: 700;
-
-    line-height: 1;
-}
-
-.card-numero-relatorio-destaque {
-    color: #e74c3c;
-}
-
-/* =========================================================
-   BIBLIO-TECH — USUÁRIOS CADASTRADOS
-   Estilos para a página de usuários
-   ========================================================= */
-
-
-/* =========================================================
-   PÁGINA USUÁRIOS
-   ========================================================= */
-
-.pagina-usuarios {
-    width: 100%;
-}
-
-
-/* =========================================================
-   FILTRO E BUSCA DE USUÁRIOS
-   ========================================================= */
-
-.filtro-usuarios {
-    background-color: #ffffff;
-
-    border: 1px solid #bfc3c8;
-    border-radius: 5px;
-
-    padding: 15px;
-
-    margin-bottom: 20px;
-}
-
-
-/* ---------- Container do Filtro ---------- */
-
-.filtro-usuarios-container {
-    display: flex;
-    gap: 10px;
-    align-items: flex-end;
-}
-
-
-/* ---------- Input de Pesquisa ---------- */
-
-.input-pesquisa-usuarios-wrapper {
-    position: relative;
-    flex: 1;
-    min-width: 300px;
-}
-
-.icon-pesquisa {
-    position: absolute;
-    left: 12px;
-    top: 50%;
-    transform: translateY(-50%);
-
-    font-size: 16px;
-    color: #8a92a6;
-
-    pointer-events: none;
-}
-
-.input-pesquisa-usuarios {
-    width: 100%;
-
-    padding: 10px 12px 10px 40px;
-
-    border: 1px solid #bfc3c8;
-    border-radius: 5px;
-
-    background-color: #ffffff;
-    color: #17233c;
-
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 14px;
-
-    transition: all 0.2s ease;
-}
-
-.input-pesquisa-usuarios::placeholder {
-    color: #8a92a6;
-}
-
-.input-pesquisa-usuarios:focus {
-    outline: none;
-    border-color: #111111;
-    box-shadow: 0 0 0 2px rgba(17, 17, 17, 0.1);
-}
-
-
-/* ---------- Botão Buscar ---------- */
-
-.btn-buscar-usuarios {
-    padding: 10px 24px;
-
-    background-color: #17233c;
-    color: #ffffff;
-
-    border: none;
-    border-radius: 5px;
-
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 14px;
-    font-weight: 600;
-
-    cursor: pointer;
-
-    transition: all 0.2s ease;
-
-    white-space: nowrap;
-
-    height: 40px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.btn-buscar-usuarios:hover {
-    background-color: #0f1820;
-}
-
-.btn-buscar-usuarios:active {
-    transform: scale(0.98);
-}
-
-
-/* =========================================================
-   TABELA DE USUÁRIOS
-   ========================================================= */
-
-.tabela-usuarios-container {
-    background-color: #ffffff;
-
-    border: 1px solid #bfc3c8;
-    border-radius: 5px;
-
-    padding: 10px;
-
-    margin-bottom: 20px;
-
-    overflow-x: auto;
-}
-
-.tabela-usuarios {
-    width: 100%;
-
-    border-collapse: collapse;
-
-    table-layout: auto;
-}
-
-
-/* ---------- Cabeçalho ---------- */
-
-.tabela-usuarios thead {
-    background-color: #f5f7fa;
-}
-
-.tabela-usuarios th {
-    padding: 10px 8px;
-
-    color: #17233c;
-
-    font-size: 13px;
-    font-weight: 700;
-
-    text-align: left;
-
-    border-bottom: 1px solid #bfc3c8;
-}
-
-
-/* ---------- Células ---------- */
-
-.tabela-usuarios tbody td {
-    padding: 12px 8px;
-
-    color: #17233c;
-
-    font-size: 13px;
-    line-height: 1.4;
-
-    text-align: left;
-
-    border-bottom: 1px solid #e5e8ed;
-}
-
-
-/* ---------- Hover nas Linhas ---------- */
-
-.tabela-usuarios tbody tr:hover {
-    background-color: #f9fafb;
-}
-
-
-/* =========================================================
-   PAGINAÇÃO DE USUÁRIOS
-   ========================================================= */
-
-.paginacao-usuarios {
-    display: flex;
-
-    justify-content: center;
-    align-items: center;
-
-    gap: 8px;
-
-    margin-top: 20px;
-}
-
-
-/* ---------- Botões de Navegação ---------- */
-
-.btn-paginacao-usuarios {
-    width: 36px;
-    height: 36px;
-
-    background-color: #ffffff;
-    color: #17233c;
-
-    border: 1px solid #bfc3c8;
-    border-radius: 5px;
-
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 14px;
-    font-weight: 600;
-
-    cursor: pointer;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    transition: all 0.2s ease;
-}
-
-.btn-paginacao-usuarios:hover:not(:disabled) {
-    border-color: #111111;
-    background-color: #f5f7fa;
-}
-
-.btn-paginacao-usuarios:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-}
-
-
-/* ---------- Números de Página ---------- */
-
-.numeros-pagina-usuarios {
-    display: flex;
-    gap: 4px;
-}
-
-.numero-pagina-usuarios {
-    min-width: 36px;
-    height: 36px;
-
-    background-color: #ffffff;
-    color: #17233c;
-
-    border: 1px solid #bfc3c8;
-    border-radius: 5px;
-
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 14px;
-    font-weight: 600;
-
-    cursor: pointer;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    transition: all 0.2s ease;
-}
-
-.numero-pagina-usuarios:hover {
-    border-color: #111111;
-    background-color: #f5f7fa;
-}
-
-.numero-pagina-usuarios.ativo {
-    background-color: #17233c;
-    color: #ffffff;
-    border-color: #17233c;
-}
-
-
-/* =========================================================
-   MENSAGEM DE VAZIO
-   ========================================================= */
-
-.mensagem-vazia-usuarios {
-    text-align: center;
-
-    padding: 40px;
-
-    color: #8a92a6;
-
-    font-size: 16px;
-}
-
-/* =========================================================
-   BIBLIO-TECH — CADASTRAR USUÁRIO
-   Estilos para a página de cadastro de usuários
-   ========================================================= */
-
-
-/* =========================================================
-   PÁGINA CADASTRO USUÁRIOS
-   ========================================================= */
-
-.pagina-cadastro-usuarios {
-    width: 100%;
-
-    max-width: 600px;
-}
-
-
-/* =========================================================
-   FORMULÁRIO
-   ========================================================= */
-
-.formulario-cadastro-usuarios {
-    background-color: #ffffff;
-
-    border: 1px solid #bfc3c8;
-    border-radius: 5px;
-
-    padding: 30px;
-
-    margin-top: 30px;
-
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
-
-
-/* ---------- Grupo do Formulário ---------- */
-
-.grupo-formulario {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-}
-
-
-/* ---------- Label ---------- */
-
-.label-formulario {
-    color: #17233c;
-
-    font-size: 14px;
-    font-weight: 700;
-
-    line-height: 1.2;
-}
-
-
-/* ---------- Input ---------- */
-
-.input-formulario {
-    padding: 12px;
-
-    border: 1px solid #bfc3c8;
-    border-radius: 5px;
-
-    background-color: #ffffff;
-    color: #17233c;
-
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 14px;
-
-    transition: all 0.2s ease;
-
-    min-height: 42px;
-}
-
-.input-formulario::placeholder {
-    color: #8a92a6;
-}
-
-.input-formulario:focus {
-    outline: none;
-    border-color: #111111;
-    box-shadow: 0 0 0 2px rgba(17, 17, 17, 0.1);
-}
-
-.input-formulario:invalid:not(:placeholder-shown) {
-    border-color: #e74c3c;
-}
-
-.input-formulario:valid:not(:placeholder-shown) {
-    border-color: #27ae60;
-}
-
-
-/* ---------- Botão Cadastrar ---------- */
-
-.btn-cadastrar-usuarios {
-    padding: 12px 24px;
-
-    background-color: #17233c;
-    color: #ffffff;
-
-    border: none;
-    border-radius: 5px;
-
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 14px;
-    font-weight: 600;
-
-    cursor: pointer;
-
-    transition: all 0.2s ease;
-
-    white-space: nowrap;
-
-    min-height: 42px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    margin-top: 10px;
-}
-
-.btn-cadastrar-usuarios:hover {
-    background-color: #0f1820;
-}
-
-.btn-cadastrar-usuarios:active {
-    transform: scale(0.98);
-}
-
-.btn-cadastrar-usuarios:disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
-}
-
-
-/* =========================================================
-   MENSAGEM DE FEEDBACK
-   ========================================================= */
-
-.mensagem-feedback {
-    padding: 12px 15px;
-
-    border-radius: 5px;
-
-    font-size: 14px;
-    font-weight: 500;
-
-    margin-top: 15px;
-
-    border-left: 4px solid;
-
-    animation: slideIn 0.3s ease;
-}
-
-@keyframes slideIn {
-    from {
-        opacity: 0;
-        transform: translateY(-10px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-.mensagem-feedback.sucesso {
-    background-color: #d4edda;
-    color: #234f2c;
-    border-left-color: #27ae60;
-}
-
-.mensagem-feedback.erro {
-    background-color: #f8d7da;
-    color: #721c24;
-    border-left-color: #e74c3c;
-}
-
-.mensagem-feedback.aviso {
-    background-color: #fff3cd;
-    color: #856404;
-    border-left-color: #f39c12;
-}
-
-/* =========================================================
-   BIBLIO-TECH — EMPRESTAR LIVRO
-   Estilos para a página de empréstimo de livros
-   ========================================================= */
-
-
-/* =========================================================
-   PÁGINA EMPRESTAR LIVRO
-   ========================================================= */
-
-.pagina-emprestar-livro {
-    width: 100%;
-
-    max-width: 900px;
-}
-
-
-/* =========================================================
-   FORMULÁRIO
-   ========================================================= */
-
-.formulario-emprestar-livro {
-    background-color: #ffffff;
-
-    border: 1px solid #bfc3c8;
-    border-radius: 5px;
-
-    padding: 30px;
-
-    margin-top: 30px;
-
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
-}
-
-
-/* ---------- Linha do Formulário ---------- */
 
 .linha-formulario {
     display: grid;
-
-    grid-template-columns: repeat(3, 1fr);
-
-    gap: 20px;
-}
-
-.linha-formulario.linha-final {
-    gap: 20px;
-    align-items: flex-end;
-}
-
-
-/* ---------- Grupo do Formulário ---------- */
-
-.grupo-formulario {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-}
-
-.linha-final .grupo-formulario {
-    flex: 1;
-}
-
-
-/* ---------- Label ---------- */
-
-.label-formulario {
-    color: #17233c;
-
-    font-size: 14px;
-    font-weight: 700;
-
-    line-height: 1.2;
-}
-
-
-/* ---------- Input ---------- */
-
-.input-formulario {
-    padding: 12px;
-
-    border: 1px solid #bfc3c8;
-    border-radius: 5px;
-
-    background-color: #ffffff;
-    color: #17233c;
-
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 14px;
-
-    transition: all 0.2s ease;
-
-    min-height: 42px;
-
-    width: 100%;
-}
-
-.input-formulario::placeholder {
-    color: #8a92a6;
-}
-
-.input-formulario:focus {
-    outline: none;
-    border-color: #111111;
-    box-shadow: 0 0 0 2px rgba(17, 17, 17, 0.1);
-}
-
-.input-formulario:invalid:not(:placeholder-shown) {
-    border-color: #e74c3c;
-}
-
-.input-formulario:valid:not(:placeholder-shown) {
-    border-color: #27ae60;
-}
-
-
-/* ---------- Botão Emprestar ---------- */
-
-.btn-emprestar-livro {
-    padding: 12px 24px;
-
-    background-color: #17233c;
-    color: #ffffff;
-
-    border: none;
-    border-radius: 5px;
-
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 14px;
-    font-weight: 600;
-
-    cursor: pointer;
-
-    transition: all 0.2s ease;
-
-    white-space: nowrap;
-
-    min-height: 42px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    width: 100%;
-}
-
-.btn-emprestar-livro:hover {
-    background-color: #0f1820;
-}
-
-.btn-emprestar-livro:active {
-    transform: scale(0.98);
-}
-
-.btn-emprestar-livro:disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
-}
-
-
-/* =========================================================
-   MENSAGEM DE FEEDBACK
-   ========================================================= */
-
-.mensagem-feedback {
-    padding: 12px 15px;
-
-    border-radius: 5px;
-
-    font-size: 14px;
-    font-weight: 500;
-
-    margin-top: 15px;
-
-    border-left: 4px solid;
-
-    animation: slideIn 0.3s ease;
-}
-
-@keyframes slideIn {
-    from {
-        opacity: 0;
-        transform: translateY(-10px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-.mensagem-feedback.sucesso {
-    background-color: #d4edda;
-    color: #234f2c;
-    border-left-color: #27ae60;
-}
-
-.mensagem-feedback.erro {
-    background-color: #f8d7da;
-    color: #721c24;
-    border-left-color: #e74c3c;
-}
-
-.mensagem-feedback.aviso {
-    background-color: #fff3cd;
-    color: #856404;
-    border-left-color: #f39c12;
-}
-
-/* =========================================================
-   BIBLIO-TECH — CADASTRAR LIVRO
-   Estilos para a página de cadastro de livros
-   ========================================================= */
-
-
-/* =========================================================
-   PÁGINA CADASTRO LIVRO
-   ========================================================= */
-
-.pagina-cadastro-livro {
-    width: 100%;
-
-    max-width: 900px;
-}
-
-
-/* =========================================================
-   FORMULÁRIO
-   ========================================================= */
-
-.formulario-cadastro-livro {
-    background-color: #ffffff;
-
-    border: 1px solid #bfc3c8;
-    border-radius: 5px;
-
-    padding: 30px;
-
-    margin-top: 30px;
-
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
-}
-
-
-/* ---------- Linha do Formulário ---------- */
-
-.linha-formulario {
-    display: grid;
-
-    grid-template-columns: repeat(3, 1fr);
-
-    gap: 20px;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px;
 }
 
 .linha-formulario.linha-sinopse {
@@ -1817,376 +1032,172 @@ body {
 }
 
 .linha-formulario.linha-final {
-    gap: 20px;
-    align-items: flex-end;
+    align-items: end;
 }
-
-
-/* ---------- Grupo do Formulário ---------- */
-
-.grupo-formulario {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-}
-
-.grupo-sinopse {
-    gap: 8px;
-}
-
-.linha-final .grupo-formulario {
-    flex: 1;
-}
-
-
-/* ---------- Label ---------- */
-
-.label-formulario {
-    color: #17233c;
-
-    font-size: 14px;
-    font-weight: 700;
-
-    line-height: 1.2;
-}
-
-
-/* ---------- Input ---------- */
-
-.input-formulario {
-    padding: 12px;
-
-    border: 1px solid #bfc3c8;
-    border-radius: 5px;
-
-    background-color: #ffffff;
-    color: #17233c;
-
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 14px;
-
-    transition: all 0.2s ease;
-
-    min-height: 42px;
-
-    width: 100%;
-}
-
-.input-formulario::placeholder {
-    color: #8a92a6;
-}
-
-.input-formulario:focus {
-    outline: none;
-    border-color: #111111;
-    box-shadow: 0 0 0 2px rgba(17, 17, 17, 0.1);
-}
-
-.input-formulario:invalid:not(:placeholder-shown) {
-    border-color: #e74c3c;
-}
-
-.input-formulario:valid:not(:placeholder-shown) {
-    border-color: #27ae60;
-}
-
-
-/* ---------- Textarea (Sinopse) ---------- */
-
-.input-textarea {
-    min-height: 120px;
-
-    padding: 12px;
-
-    resize: vertical;
-
-    line-height: 1.5;
-}
-
-
-/* ---------- Botão Cadastrar ---------- */
-
-.btn-cadastrar-livro {
-    padding: 12px 24px;
-
-    background-color: #17233c;
-    color: #ffffff;
-
-    border: none;
-    border-radius: 5px;
-
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 14px;
-    font-weight: 600;
-
-    cursor: pointer;
-
-    transition: all 0.2s ease;
-
-    white-space: nowrap;
-
-    min-height: 42px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    width: 100%;
-}
-
-.btn-cadastrar-livro:hover {
-    background-color: #0f1820;
-}
-
-.btn-cadastrar-livro:active {
-    transform: scale(0.98);
-}
-
-.btn-cadastrar-livro:disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
-}
-
-
-/* =========================================================
-   MENSAGEM DE FEEDBACK
-   ========================================================= */
-
-.mensagem-feedback {
-    padding: 12px 15px;
-
-    border-radius: 5px;
-
-    font-size: 14px;
-    font-weight: 500;
-
-    margin-top: 15px;
-
-    border-left: 4px solid;
-
-    animation: slideIn 0.3s ease;
-}
-
-@keyframes slideIn {
-    from {
-        opacity: 0;
-        transform: translateY(-10px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-.mensagem-feedback.sucesso {
-    background-color: #d4edda;
-    color: #234f2c;
-    border-left-color: #27ae60;
-}
-
-.mensagem-feedback.erro {
-    background-color: #f8d7da;
-    color: #721c24;
-    border-left-color: #e74c3c;
-}
-
-.mensagem-feedback.aviso {
-    background-color: #fff3cd;
-    color: #856404;
-    border-left-color: #f39c12;
-}
-
-/* =========================================================
-   BIBLIO-TECH — DEVOLVER LIVRO
-   Estilos para a página de devolução de livros
-   ========================================================= */
-
-
-/* =========================================================
-   PÁGINA DEVOLUÇÃO
-   ========================================================= */
-
-.pagina-devolucao {
-    width: 100%;
-
-    max-width: 900px;
-}
-
-
-/* =========================================================
-   DIVISOR DA PÁGINA
-   ========================================================= */
-
-.divisor-pagina {
-    border: none;
-    border-top: 1px solid #bfc3c8;
-    margin: 20px 0;
-}
-
-
-/* =========================================================
-   FORMULÁRIO
-   ========================================================= */
-
-.formulario-devolucao {
-    background-color: transparent;
-
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
-
-    margin-top: 30px;
-}
-
-
-/* ---------- Linha do Formulário ---------- */
 
 .linha-formulario-devolucao {
     display: grid;
-
-    grid-template-columns: repeat(2, 1fr);
-
-    gap: 20px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
 }
 
 .linha-formulario-devolucao.linha-devolucao-final {
-    gap: 20px;
-    align-items: flex-end;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    align-items: end;
 }
-
-
-/* ---------- Grupo do Formulário ---------- */
 
 .grupo-formulario {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 7px;
+    min-width: 0;
 }
-
-.linha-devolucao-final .grupo-formulario {
-    flex: 1;
-}
-
-
-/* ---------- Label ---------- */
 
 .label-formulario {
-    color: #17233c;
+    color: var(--ink-soft);
 
-    font-size: 14px;
-    font-weight: 700;
-
-    line-height: 1.2;
+    font-size: 12.5px;
+    font-weight: 800;
+    letter-spacing: 0.4px;
+    text-transform: uppercase;
 }
 
-
-/* ---------- Input ---------- */
-
 .input-formulario {
-    padding: 12px;
-
-    border: 1px solid #bfc3c8;
-    border-radius: 5px;
-
-    background-color: #ffffff;
-    color: #17233c;
-
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 14px;
-
-    transition: all 0.2s ease;
-
-    min-height: 42px;
-
     width: 100%;
+    min-height: 46px;
+
+    padding: 11px 14px;
+
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+
+    background-color: #fdfaf6;
+    color: var(--ink);
+
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 600;
+
+    transition: border-color 0.18s ease, box-shadow 0.18s ease, background-color 0.18s ease;
 }
 
 .input-formulario::placeholder {
-    color: #8a92a6;
+    color: var(--muted);
+    font-weight: 600;
 }
 
 .input-formulario:focus {
     outline: none;
-    border-color: #111111;
-    box-shadow: 0 0 0 2px rgba(17, 17, 17, 0.1);
+    background-color: var(--surface);
+    border-color: var(--primary);
+    box-shadow: 0 0 0 4px rgba(231, 116, 76, 0.16);
 }
 
-.input-formulario:invalid:not(:placeholder-shown) {
-    border-color: #e74c3c;
+.input-formulario:invalid:not(:placeholder-shown):not(:focus) {
+    border-color: #e9b3a6;
 }
 
 .input-formulario:valid:not(:placeholder-shown) {
-    border-color: #27ae60;
+    border-color: #cfe2c4;
 }
 
+.input-textarea {
+    min-height: 118px;
+    padding: 12px 14px;
+    line-height: 1.55;
+    resize: vertical;
+}
 
-/* ---------- Botão Devolver ---------- */
-
-.btn-devolver-livro {
-    padding: 12px 24px;
-
-    background-color: #17233c;
-    color: #ffffff;
-
-    border: none;
-    border-radius: 5px;
-
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 14px;
-    font-weight: 600;
-
+/* Seletores usados em empréstimo/devolução e nas permissões */
+select.input-formulario {
     cursor: pointer;
+    padding-right: 34px;
+    text-overflow: ellipsis;
+}
 
-    transition: all 0.2s ease;
+.aviso-sessao {
+    margin-top: -8px;
 
-    white-space: nowrap;
+    color: var(--ink-soft);
+    font-size: 13px;
+    font-weight: 600;
+}
 
-    min-height: 42px;
-
-    display: flex;
+.btn-cadastrar-usuarios,
+.btn-cadastrar-livro,
+.btn-emprestar-livro,
+.btn-devolver-livro {
+    display: inline-flex;
     align-items: center;
     justify-content: center;
 
     width: 100%;
+    min-height: 48px;
+    padding: 12px 26px;
+
+    border: none;
+    border-radius: 999px;
+
+    background-image: linear-gradient(140deg, var(--primary), #f0945f);
+    color: #ffffff;
+
+    font-family: inherit;
+    font-size: 15px;
+    font-weight: 800;
+
+    cursor: pointer;
+
+    box-shadow: 0 14px 24px -12px rgba(231, 116, 76, 0.95);
+
+    transition: transform 0.16s ease, box-shadow 0.16s ease, filter 0.16s ease;
 }
 
+.btn-cadastrar-usuarios:hover,
+.btn-cadastrar-livro:hover,
+.btn-emprestar-livro:hover,
 .btn-devolver-livro:hover {
-    background-color: #0f1820;
+    transform: translateY(-1px);
+    filter: saturate(1.08);
+    box-shadow: 0 18px 28px -12px rgba(231, 116, 76, 1);
 }
 
+.btn-cadastrar-usuarios:active,
+.btn-cadastrar-livro:active,
+.btn-emprestar-livro:active,
 .btn-devolver-livro:active {
-    transform: scale(0.98);
+    transform: translateY(0) scale(0.99);
 }
 
+.btn-cadastrar-usuarios:disabled,
+.btn-cadastrar-livro:disabled,
+.btn-emprestar-livro:disabled,
 .btn-devolver-livro:disabled {
     opacity: 0.6;
     cursor: not-allowed;
 }
 
-
-/* =========================================================
-   MENSAGEM DE FEEDBACK
-   ========================================================= */
+/* ---------- Mensagem de feedback ---------- */
 
 .mensagem-feedback {
-    padding: 12px 15px;
+    margin-top: 16px;
+    padding: 13px 16px;
 
-    border-radius: 5px;
+    background-color: var(--surface);
+    border-left: 5px solid var(--primary);
+    border-radius: var(--radius);
 
     font-size: 14px;
-    font-weight: 500;
+    font-weight: 800;
 
-    margin-top: 15px;
+    box-shadow: var(--shadow-sm);
 
-    border-left: 4px solid;
-
-    animation: slideIn 0.3s ease;
+    animation: entra 0.24s ease;
 }
 
-@keyframes slideIn {
+@keyframes entra {
     from {
         opacity: 0;
-        transform: translateY(-10px);
+        transform: translateY(-8px);
     }
     to {
         opacity: 1;
@@ -2194,760 +1205,577 @@ body {
     }
 }
 
-.mensagem-feedback.sucesso {
-    background-color: #d4edda;
-    color: #234f2c;
-    border-left-color: #27ae60;
-}
-
-.mensagem-feedback.erro {
-    background-color: #f8d7da;
-    color: #721c24;
-    border-left-color: #e74c3c;
-}
-
-.mensagem-feedback.aviso {
-    background-color: #fff3cd;
-    color: #856404;
-    border-left-color: #f39c12;
-}
-
-
 /* =========================================================
-   RESPONSIVIDADE
+   AÇÕES DA TABELA + MODAIS (CRUD de livros)
    ========================================================= */
 
-/* ---------- Tablets (900px) ---------- */
+.th-acoes {
+    text-align: right;
+}
 
-@media (max-width: 900px) {
+.td-acoes {
+    text-align: right;
+    white-space: nowrap;
+}
 
-    .pagina-devolucao {
-        max-width: 100%;
+.btn-acao {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 34px;
+    height: 34px;
+    margin-left: 6px;
+
+    border: 1px solid var(--line);
+    border-radius: var(--radius-sm);
+
+    background-color: var(--surface-soft);
+    color: var(--ink-soft);
+
+    cursor: pointer;
+
+    transition: transform 0.16s ease, background-color 0.16s ease, color 0.16s ease,
+        border-color 0.16s ease;
+}
+
+.btn-acao svg {
+    width: 16px;
+    height: 16px;
+}
+
+.btn-acao:hover {
+    transform: translateY(-1px);
+    background-color: var(--primary-soft);
+    border-color: #f0cbb8;
+    color: var(--primary-dark);
+}
+
+.btn-acao:active {
+    transform: translateY(0) scale(0.96);
+}
+
+.btn-acao-excluir:hover {
+    background-color: var(--danger-soft);
+    border-color: #f1c3b7;
+    color: var(--danger);
+}
+
+/* ---------- Modal ---------- */
+
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 200;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 20px;
+
+    background-color: rgba(56, 47, 41, 0.38);
+    backdrop-filter: blur(2px);
+
+    animation: aparecer 0.18s ease;
+}
+
+/* o atributo hidden precisa vencer o display: flex acima */
+.modal-overlay[hidden] {
+    display: none;
+}
+
+@keyframes aparecer {
+    from {
+        opacity: 0;
     }
-
-    .formulario-devolucao {
-        gap: 20px;
-    }
-
-    .linha-formulario-devolucao {
-        grid-template-columns: 1fr;
-        gap: 16px;
-    }
-
-    .linha-devolucao-final {
-        grid-template-columns: 1fr;
-    }
-
-    .btn-devolver-livro {
-        grid-column: auto;
-    }
-
-    .input-formulario {
-        font-size: 13px;
-        padding: 11px;
+    to {
+        opacity: 1;
     }
 }
 
+.modal {
+    width: 100%;
+    max-width: 560px;
+    max-height: calc(100vh - 40px);
+    overflow-y: auto;
 
-/* ---------- Celulares (650px) ---------- */
+    padding: 22px 24px 20px;
 
-@media (max-width: 650px) {
+    background-color: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-xl);
 
-    .titulo-secao {
-        margin-bottom: 25px;
-    }
+    box-shadow: var(--shadow-pop);
 
-    .titulo-secao h2 {
-        font-size: 26px;
-    }
-
-    .subtitulo {
-        font-size: 14px;
-    }
-
-    .pagina-devolucao {
-        max-width: 100%;
-    }
-
-    .divisor-pagina {
-        margin: 15px 0;
-    }
-
-    .formulario-devolucao {
-        gap: 16px;
-        margin-top: 20px;
-    }
-
-    .linha-formulario-devolucao {
-        grid-template-columns: 1fr;
-        gap: 12px;
-    }
-
-    .linha-devolucao-final {
-        grid-template-columns: 1fr;
-        gap: 12px;
-        align-items: stretch;
-    }
-
-    .btn-devolver-livro {
-        width: 100%;
-    }
-
-    .label-formulario {
-        font-size: 13px;
-    }
-
-    .input-formulario {
-        font-size: 13px;
-        padding: 10px;
-        min-height: 40px;
-    }
-
-    .btn-devolver-livro {
-        font-size: 13px;
-        padding: 10px 20px;
-        min-height: 40px;
-    }
-
-    .mensagem-feedback {
-        font-size: 13px;
-        padding: 10px 12px;
-    }
+    animation: entra 0.2s ease;
 }
 
-/* =========================================================
-   RESPONSIVIDADE
-   ========================================================= */
+.modal-cabecalho {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
 
-/* ---------- Tablets (900px) ---------- */
-
-@media (max-width: 900px) {
-
-    .pagina-cadastro-livro {
-        max-width: 100%;
-    }
-
-    .formulario-cadastro-livro {
-        padding: 25px;
-        gap: 20px;
-    }
-
-    .linha-formulario {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 16px;
-    }
-
-    .linha-sinopse {
-        grid-template-columns: 1fr;
-    }
-
-    .linha-final {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
-    .btn-cadastrar-livro {
-        grid-column: 1 / -1;
-    }
-
-    .input-formulario {
-        font-size: 13px;
-        padding: 11px;
-    }
-
-    .input-textarea {
-        min-height: 100px;
-    }
+    margin-bottom: 16px;
 }
 
+.modal-cabecalho h3 {
+    font-family: var(--font-title);
+    font-size: 21px;
+    font-weight: 700;
+    letter-spacing: -0.2px;
 
-/* ---------- Celulares (650px) ---------- */
-
-@media (max-width: 650px) {
-
-    .titulo-secao {
-        margin-bottom: 25px;
-    }
-
-    .titulo-secao h2 {
-        font-size: 26px;
-    }
-
-    .subtitulo {
-        font-size: 14px;
-    }
-
-    .pagina-cadastro-livro {
-        max-width: 100%;
-    }
-
-    .formulario-cadastro-livro {
-        padding: 20px;
-        gap: 16px;
-        margin-top: 20px;
-    }
-
-    .linha-formulario {
-        grid-template-columns: 1fr;
-        gap: 12px;
-    }
-
-    .linha-sinopse {
-        grid-template-columns: 1fr;
-    }
-
-    .linha-final {
-        grid-template-columns: 1fr;
-        gap: 12px;
-        align-items: stretch;
-    }
-
-    .btn-cadastrar-livro {
-        width: 100%;
-        grid-column: auto;
-    }
-
-    .label-formulario {
-        font-size: 13px;
-    }
-
-    .input-formulario {
-        font-size: 13px;
-        padding: 10px;
-        min-height: 40px;
-    }
-
-    .input-textarea {
-        min-height: 100px;
-    }
-
-    .btn-cadastrar-livro {
-        font-size: 13px;
-        padding: 10px 20px;
-        min-height: 40px;
-    }
-
-    .mensagem-feedback {
-        font-size: 13px;
-        padding: 10px 12px;
-    }
+    color: var(--ink);
 }
 
-/* =========================================================
-   RESPONSIVIDADE
-   ========================================================= */
+.modal-fechar {
+    flex: 0 0 auto;
 
-/* ---------- Tablets (900px) ---------- */
+    width: 34px;
+    height: 34px;
 
-@media (max-width: 900px) {
+    border: 1px solid var(--line);
+    border-radius: 50%;
 
-    .pagina-emprestar-livro {
-        max-width: 100%;
-    }
+    background-color: var(--surface-soft);
+    color: var(--ink-soft);
 
-    .formulario-emprestar-livro {
-        padding: 25px;
-        gap: 20px;
-    }
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 1;
 
-    .linha-formulario {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 16px;
-    }
-
-    .linha-final {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
-    .btn-emprestar-livro {
-        grid-column: 1 / -1;
-    }
-
-    .input-formulario {
-        font-size: 13px;
-        padding: 11px;
-    }
+    cursor: pointer;
 }
 
+.modal-fechar:hover {
+    background-color: var(--primary-soft);
+    color: var(--primary-dark);
+}
 
-/* ---------- Celulares (650px) ---------- */
+.campo-modal {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
 
-@media (max-width: 650px) {
+    margin-bottom: 12px;
+}
 
-    .titulo-secao {
-        margin-bottom: 25px;
-    }
+.campo-modal label {
+    color: var(--ink-soft);
 
-    .titulo-secao h2 {
-        font-size: 26px;
-    }
+    font-size: 12.5px;
+    font-weight: 800;
+}
 
-    .subtitulo {
-        font-size: 14px;
-    }
+.linha-modal {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+}
 
-    .pagina-emprestar-livro {
-        max-width: 100%;
-    }
+.modal-texto {
+    margin-bottom: 8px;
 
-    .formulario-emprestar-livro {
-        padding: 20px;
-        gap: 16px;
-        margin-top: 20px;
-    }
+    color: var(--ink-soft);
 
-    .linha-formulario {
+    font-size: 14px;
+    line-height: 1.6;
+    font-weight: 600;
+}
+
+.modal-texto strong {
+    color: var(--ink);
+    font-weight: 800;
+}
+
+.modal-acoes {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: 10px;
+
+    margin-top: 18px;
+}
+
+.btn-primario,
+.btn-secundario,
+.btn-perigo {
+    min-height: 44px;
+    padding: 10px 22px;
+
+    border: none;
+    border-radius: 999px;
+
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 800;
+
+    cursor: pointer;
+
+    transition: transform 0.16s ease, filter 0.16s ease, background-color 0.16s ease;
+}
+
+.btn-primario {
+    background-image: linear-gradient(140deg, var(--primary), #f0945f);
+    color: #ffffff;
+    box-shadow: 0 14px 24px -14px rgba(231, 116, 76, 0.95);
+}
+
+.btn-secundario {
+    background-color: var(--surface-soft);
+    color: var(--ink-soft);
+    border: 1px solid var(--line);
+}
+
+.btn-secundario:hover {
+    background-color: var(--primary-soft);
+    color: var(--primary-dark);
+}
+
+.btn-perigo {
+    background-image: linear-gradient(140deg, var(--danger), #e08468);
+    color: #ffffff;
+    box-shadow: 0 14px 24px -14px rgba(207, 90, 65, 0.95);
+}
+
+.btn-primario:hover,
+.btn-perigo:hover {
+    transform: translateY(-1px);
+    filter: saturate(1.06);
+}
+
+.btn-primario:active,
+.btn-perigo:active,
+.btn-secundario:active {
+    transform: translateY(0) scale(0.99);
+}
+
+.btn-primario:disabled,
+.btn-perigo:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+@media (max-width: 560px) {
+    .linha-modal {
         grid-template-columns: 1fr;
-        gap: 12px;
     }
 
-    .linha-final {
-        grid-template-columns: 1fr;
-        gap: 12px;
-        align-items: stretch;
-    }
-
-    .btn-emprestar-livro {
-        width: 100%;
-        grid-column: auto;
-    }
-
-    .label-formulario {
-        font-size: 13px;
-    }
-
-    .input-formulario {
-        font-size: 13px;
-        padding: 10px;
-        min-height: 40px;
-    }
-
-    .btn-emprestar-livro {
-        font-size: 13px;
-        padding: 10px 20px;
-        min-height: 40px;
-    }
-
-    .mensagem-feedback {
-        font-size: 13px;
-        padding: 10px 12px;
-    }
-}
-
-
-/* =========================================================
-   RESPONSIVIDADE
-   ========================================================= */
-
-/* ---------- Tablets (900px) ---------- */
-
-@media (max-width: 900px) {
-
-    .pagina-cadastro-usuarios {
-        max-width: 100%;
-    }
-
-    .formulario-cadastro-usuarios {
-        padding: 25px;
-        gap: 18px;
-    }
-
-    .input-formulario {
-        font-size: 13px;
-        padding: 11px;
-    }
-
-    .btn-cadastrar-usuarios {
-        font-size: 13px;
-        padding: 11px 20px;
-        min-height: 40px;
-    }
-}
-
-
-/* ---------- Celulares (650px) ---------- */
-
-@media (max-width: 650px) {
-
-    .titulo-secao {
-        margin-bottom: 25px;
-    }
-
-    .titulo-secao h2 {
-        font-size: 26px;
-    }
-
-    .subtitulo {
-        font-size: 14px;
-    }
-
-    .pagina-cadastro-usuarios {
-        max-width: 100%;
-    }
-
-    .formulario-cadastro-usuarios {
-        padding: 20px;
-        gap: 16px;
-        margin-top: 20px;
-    }
-
-    .label-formulario {
-        font-size: 13px;
-    }
-
-    .input-formulario {
-        font-size: 13px;
-        padding: 10px;
-        min-height: 40px;
-    }
-
-    .btn-cadastrar-usuarios {
-        font-size: 13px;
-        padding: 10px 20px;
-        min-height: 40px;
-        margin-top: 8px;
-    }
-
-    .mensagem-feedback {
-        font-size: 13px;
-        padding: 10px 12px;
+    .td-acoes {
+        text-align: left;
     }
 }
 
 /* =========================================================
-   RESPONSIVIDADE
+   RESPONSIVO
    ========================================================= */
 
-/* ---------- Tablets (900px) ---------- */
-
-@media (max-width: 900px) {
-
-    .filtro-usuarios-container {
-        flex-direction: column;
-        align-items: stretch;
-
-        gap: 12px;
-    }
-
-    .input-pesquisa-usuarios-wrapper {
-        min-width: 100%;
-    }
-
-    .btn-buscar-usuarios {
-        width: 100%;
-    }
-
-    .tabela-usuarios {
-        font-size: 12px;
-    }
-
-    .tabela-usuarios th,
-    .tabela-usuarios td {
-        padding: 8px 5px;
-    }
-}
-
-
-/* ---------- Celulares (650px) ---------- */
-
-@media (max-width: 650px) {
-
-    .filtro-usuarios {
-        padding: 12px;
-    }
-
-    .filtro-usuarios-container {
-        flex-direction: column;
-        gap: 10px;
-    }
-
-    .input-pesquisa-usuarios-wrapper {
-        min-width: 100%;
-    }
-
-    .input-pesquisa-usuarios {
-        font-size: 13px;
-        padding: 9px 10px 9px 36px;
-    }
-
-    .icon-pesquisa {
-        left: 10px;
-        font-size: 14px;
-    }
-
-    .btn-buscar-usuarios {
-        width: 100%;
-        font-size: 13px;
-        padding: 9px 20px;
-    }
-
-    .tabela-usuarios-container {
-        padding: 8px;
-        overflow-x: auto;
-    }
-
-    .tabela-usuarios {
-        font-size: 11px;
-        min-width: 500px;
-    }
-
-    .tabela-usuarios th,
-    .tabela-usuarios td {
-        padding: 6px 4px;
-    }
-
-    .paginacao-usuarios {
-        gap: 6px;
-        margin-top: 15px;
-    }
-
-    .btn-paginacao-usuarios,
-    .numero-pagina-usuarios {
-        width: 32px;
-        height: 32px;
-        font-size: 12px;
-    }
-}
-
-/* =========================================================
-   RESPONSIVIDADE
-   ========================================================= */
-
-/* ---------- Tablets (900px) ---------- */
-
-@media (max-width: 900px) {
-
-    .header {
-        width: 190px;
-    }
-
-    .sidebar {
-        width: 190px;
-    }
-
-    .conteudo-principal {
-        margin-left: 190px;
-        padding-left: 15px;
-        padding-right: 15px;
-    }
-
-    .nav-link,
-    .btn-sair {
-        padding-left: 55px;
-    }
-
-    .logo h1 {
-        font-size: 20px;
-    }
-
+@media (max-width: 1080px) {
     .cards-metricas {
-        grid-template-columns: 1fr;
-        gap: 8px;
-    }
-
-    .card {
-        min-height: 110px;
-    }
-
-    .cards-metricas-relatorio {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 12px;
-    }
-
-    .card-relatorio {
-        min-height: 130px;
-    }
-
-    .filtros-container {
-        flex-direction: column;
-        align-items: stretch;
-
-        padding: 15px;
-        gap: 12px;
-    }
-
-    .filtro-pesquisa {
-        min-width: 100%;
-    }
-
-    .filtro-dropdown {
-        min-width: 100%;
-    }
-
-    .btn-buscar {
-        width: 100%;
-    }
-
-    .tabela-livros {
-        font-size: 12px;
-    }
-
-    .tabela-livros th,
-    .tabela-livros td {
-        padding: 8px 5px;
-    }
-
-    .filtros-relatorio-container {
-        flex-direction: column;
-        gap: 12px;
-    }
-
-    .filtro-relatorio-item {
-        min-width: 100%;
-    }
-
-    .btn-gerar-relatorio {
-        width: 100%;
-    }
-
-    .acoes-relatorio {
-        flex-direction: column;
-    }
-
-    .btn-exportar,
-    .btn-imprimir {
-        width: 100%;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 }
 
-
-/* ---------- Celulares (650px) ---------- */
-
-@media (max-width: 650px) {
-
+@media (max-width: 900px) {
     .header {
-        position: relative;
-
-        width: 100%;
-        height: 70px;
-
-        border-right: none;
-    }
-
-    .header-content {
-        justify-content: center;
-    }
-
-    .sidebar {
-        position: relative;
-
-        top: auto;
-        bottom: auto;
-
+        position: static;
         width: 100%;
         height: auto;
+        padding: 16px 18px 12px;
+    }
 
-        border-right: none;
-        border-bottom: 1px solid #cfd3d8;
+    .sidebar {
+        position: static;
+        width: 100%;
+        padding: 0 12px 12px;
+        overflow: visible;
 
-        padding: 5px 0;
+        border-bottom: 1px solid var(--line);
     }
 
     .nav-menu {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
+        flex-direction: row;
+        gap: 6px;
+        padding-bottom: 6px;
+        overflow-x: auto;
+        scrollbar-width: thin;
+    }
+
+    .nav-menu li {
+        flex: 0 0 auto;
     }
 
     .nav-link {
-        min-height: 40px;
-
-        padding: 8px 10px;
-
-        justify-content: center;
-        text-align: center;
+        padding: 7px 12px 7px 8px;
+        white-space: nowrap;
     }
 
-    .btn-sair {
-        margin-top: 5px;
-
-        padding: 10px;
-
-        text-align: center;
+    .sidebar-footer {
+        display: none;
     }
 
     .conteudo-principal {
         margin-left: 0;
-
-        padding: 30px 12px;
-    }
-
-    .titulo-secao {
-        margin-bottom: 25px;
+        padding: 24px 16px 44px;
     }
 
     .titulo-secao h2 {
-        font-size: 26px;
-    }
-
-    .subtitulo {
-        font-size: 14px;
-    }
-
-    .cards-metricas {
-        grid-template-columns: 1fr;
-    }
-
-    .emprestimos-recentes {
-        overflow-x: auto;
-    }
-
-    .tabela-emprestimos {
-        min-width: 650px;
-    }
-
-    .cards-metricas-relatorio {
-        grid-template-columns: 1fr;
-        gap: 12px;
-    }
-
-    .card-relatorio {
-        min-height: 110px;
-    }
-
-    .card-icon-relatorio {
         font-size: 28px;
     }
-
-    .card-numero-relatorio,
-    .card-numero-relatorio-destaque {
-        font-size: 32px;
-    }
-
-    .filtros-container {
-        flex-direction: column;
-        padding: 12px;
-        gap: 10px;
-    }
-
-    .filtro-pesquisa,
-    .filtro-dropdown {
-        min-width: 100%;
-    }
-
-    .btn-buscar {
-        width: 100%;
-    }
-
-    .input-pesquisa,
-    .btn-dropdown,
-    .btn-buscar {
-        font-size: 13px;
-        padding: 9px 10px;
-    }
-
-    .tabela-container {
-        padding: 8px;
-        overflow-x: auto;
-    }
-
-    .tabela-livros {
-        font-size: 11px;
-        min-width: 600px;
-    }
-
-    .tabela-livros th,
-    .tabela-livros td {
-        padding: 6px 4px;
-    }
-
 }
 
+@media (max-width: 760px) {
+    .cards-metricas,
+    .cards-metricas-relatorio {
+        grid-template-columns: 1fr;
+    }
+
+    .linha-formulario,
+    .linha-formulario.linha-sinopse,
+    .linha-formulario-devolucao,
+    .linha-formulario-devolucao.linha-devolucao-final {
+        grid-template-columns: 1fr;
+    }
+
+    .formulario-cadastro-usuarios,
+    .formulario-cadastro-livro,
+    .formulario-emprestar-livro,
+    .formulario-devolucao {
+        padding: 20px 18px;
+    }
+
+    .emprestimos-recentes,
+    .tabela-container,
+    .tabela-usuarios-container {
+        padding: 12px;
+    }
+
+    .btn-buscar,
+    .btn-buscar-usuarios {
+        width: 100%;
+    }
+}
+
+/* =========================================================
+   CONTAS: CHIP DA SESSÃO, PERMISSÕES E TELA DE LOGIN
+   ========================================================= */
+
+.sessao-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    margin-bottom: 10px;
+    padding: 10px 12px;
+
+    background-color: rgba(255, 255, 255, 0.92);
+    border: 1px solid var(--line);
+    border-radius: 15px;
+    box-shadow: var(--shadow-sm);
+}
+
+.sessao-avatar {
+    display: grid;
+    place-items: center;
+    flex: 0 0 auto;
+
+    width: 34px;
+    height: 34px;
+
+    border-radius: 11px;
+
+    color: #ffffff;
+    background-image: linear-gradient(140deg, var(--primary), #f0945f);
+
+    font-family: var(--font-title);
+    font-size: 16px;
+    font-weight: 800;
+}
+
+.sessao-dados {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+.sessao-nome {
+    color: var(--ink);
+    font-size: 13.5px;
+    font-weight: 800;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.sessao-papel {
+    color: var(--muted);
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+.sessao-papel.dev {
+    color: var(--primary-dark);
+}
+
+.select-papel {
+    min-height: 34px;
+    padding: 4px 12px;
+
+    border: 1px solid var(--line);
+    border-radius: 999px;
+
+    background-color: var(--surface-soft);
+    color: var(--ink-soft);
+
+    font-family: inherit;
+    font-size: 12.5px;
+    font-weight: 800;
+
+    cursor: pointer;
+}
+
+.select-papel[data-papel="Dev"] {
+    background-color: var(--primary-soft);
+    color: var(--primary-dark);
+    border-color: #f2c3ae;
+}
+
+.select-papel:focus {
+    outline: none;
+    box-shadow: 0 0 0 4px rgba(231, 116, 76, 0.16);
+}
+
+.acesso-negado {
+    max-width: 540px;
+    padding: 30px;
+
+    background-color: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow);
+}
+
+.acesso-negado h2 {
+    margin-bottom: 8px;
+    font-family: var(--font-title);
+    font-size: 24px;
+    color: var(--ink);
+}
+
+.acesso-negado p {
+    margin-bottom: 20px;
+    color: var(--ink-soft);
+    line-height: 1.6;
+}
+
+.acesso-negado a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 11px 24px;
+
+    border-radius: 999px;
+
+    background-image: linear-gradient(140deg, var(--primary), #f0945f);
+    color: #ffffff;
+
+    font-weight: 800;
+    text-decoration: none;
+
+    box-shadow: 0 14px 24px -14px rgba(231, 116, 76, 0.95);
+}
+
+/* ---------- Tela de login ---------- */
+
+.pagina-login {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    min-height: 100vh;
+    padding: 30px 18px;
+}
+
+.login-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.login-card {
+    width: 100%;
+    max-width: 430px;
+    padding: 34px 32px 28px;
+
+    background-color: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-pop);
+}
+
+.login-marca {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+
+    margin-bottom: 20px;
+}
+
+.login-card h1 {
+    margin-bottom: 6px;
+
+    font-family: var(--font-title);
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--ink);
+}
+
+.login-subtitulo {
+    margin-bottom: 22px;
+
+    color: var(--ink-soft);
+    font-size: 14px;
+    line-height: 1.55;
+}
+
+.login-formulario {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.login-rodape {
+    margin-top: 20px;
+
+    text-align: center;
+    font-size: 13.5px;
+    color: var(--ink-soft);
+}
+
+.login-rodape a {
+    color: var(--primary-dark);
+    font-weight: 800;
+    text-decoration: none;
+}
+
+.login-rodape a:hover {
+    text-decoration: underline;
+}
+
+.login-aviso {
+    margin-top: 18px;
+    padding: 12px 14px;
+
+    background-color: var(--sage-soft);
+    border-radius: var(--radius);
+
+    font-size: 12.5px;
+    line-height: 1.5;
+    color: var(--ink-soft);
+}
+}

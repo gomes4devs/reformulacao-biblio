@@ -1,2 +1,15 @@
-.env 
-.node_modules
+# Dependências (nunca versionar)
+node_modules/
+
+# Credenciais locais do MySQL
+.env
+.env.local
+
+# Logs e arquivos temporários
+*.log
+npm-debug.log*
+
+# Sistema operacional / editor
+.DS_Store
+Thumbs.db
+.vscode/
