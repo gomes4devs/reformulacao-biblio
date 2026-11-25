@@ -362,6 +362,11 @@ async function listarUsuarios(pool) {
 }
 
 async function listarEmprestimos(pool, limite) {
+  /* O TiDB (e alguns MySQL gerenciados) recusam LIMIT vindo como parâmetro
+     preparado — "Incorrect arguments to LIMIT" — então o valor é validado e
+     entra como número literal no SQL. Nunca concatenamos entrada crua. */
+  const quantidade = Math.min(Math.max(parseInt(limite, 10) || 100, 1), 1000);
+
   const [linhas] = await pool.execute(
     `
     SELECT e.id_emprestimo AS idEmprestimo,
@@ -377,9 +382,8 @@ async function listarEmprestimos(pool, limite) {
       JOIN acervo a ON a.id_acervo = e.id_acervo
       JOIN livros l ON l.id_livro = a.id_livro
      ORDER BY e.id_emprestimo DESC
-     LIMIT ?
-  `,
-    [Number(limite) || 100]
+     LIMIT ${quantidade}
+  `
   );
   return linhas;
 }
